@@ -58,11 +58,13 @@ def get_point_info(x, y, origin_x, origin_y, scale):
 def get_shape_at(svg, origin_x, origin_y, scale, target_x, target_y):
 
     for shape in svg.shapes:
-        cx, cy, width, height = get_rect_info(shape, origin_x, origin_y, scale)
+        if isinstance(shape, Rect):
+            cx, cy, width, height = get_rect_info(shape, origin_x, origin_y, scale)
 
-        if (cx - width / 2) <= target_x <= (cx + width / 2) and (cy - height / 2) <= target_y <= (cy + height / 2):
-            return shape
+            if (cx - width / 2) <= target_x <= (cx + width / 2) and (cy - height / 2) <= target_y <= (cy + height / 2):
+                return shape
 
+    return None
 
 def get_rect_for_name(svg, name: str):
     for shape in svg.shapes:
