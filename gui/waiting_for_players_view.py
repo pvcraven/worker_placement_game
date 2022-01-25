@@ -5,7 +5,6 @@ import arcade.gui
 from gui.game_view_xml import GameViewXML
 
 logger = logging.getLogger(__name__)
-logger.setLevel(logging.DEBUG)
 
 
 class WaitingForPlayersView(arcade.View):
@@ -21,7 +20,7 @@ class WaitingForPlayersView(arcade.View):
 
         arcade.set_background_color(arcade.color.AMAZON)
 
-        print(f"Have server {self.window.server}")
+        logger.debug(f"Have server {self.window.server}")
         if server:
             self.gui_manager = arcade.gui.UIManager()
             self.gui_manager.enable()

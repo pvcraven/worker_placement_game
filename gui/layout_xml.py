@@ -81,7 +81,7 @@ def get_style_dict(style_string):
     return style_dict
 
 
-def process_item(item: ElementTree, shapes: List, image_height: float):
+def process_item(item: ElementTree.Element, shapes: List, image_height: float):
     # Strip namespace
     _, _, item.tag = item.tag.rpartition('}')
 
@@ -116,14 +116,15 @@ def process_item(item: ElementTree, shapes: List, image_height: float):
     elif item.tag == "text":
         # Grab id
         item_id = item.attrib['id']
+        tspan = item.find("{http://www.w3.org/2000/svg}tspan")
         # Coordinates
-        x = convert_mm_to_px(float(item.attrib['x']))
+        x = convert_mm_to_px(float(tspan.attrib['x']))
         # Reverse y
-        y = image_height - convert_mm_to_px(float(item.attrib['y']))
+        y = image_height - convert_mm_to_px(float(tspan.attrib['y']))
         # Style info
         style_dict = get_style_dict(item.attrib['style'])
 
-        text_string = item.find("{http://www.w3.org/2000/svg}tspan").text
+        text_string = tspan.text
 
         # Create object and append to list
         text = Text(item_id, x, y, style_dict, text_string)

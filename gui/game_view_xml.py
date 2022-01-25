@@ -10,9 +10,9 @@ from .layout_xml import Rect
 from .layout_xml import Text
 from .text_replacement import text_replacement
 from .dimension_calculations import calculate_screen_data
+from .lookup_image import lookup_image
 
 logger = logging.getLogger(__name__)
-logger.setLevel(logging.DEBUG)
 
 
 class GameViewXML(arcade.View):
@@ -72,7 +72,7 @@ class GameViewXML(arcade.View):
                 rect = get_rect_for_name(self.svg, item["location"])
                 if rect:
                     cx, cy, width, height = get_rect_info(rect, origin_x, origin_y, ratio)
-                    image_name = f"images/{item['image_name']}.png"
+                    image_name = lookup_image(item['name'])
                     logger.debug(f"Drawing with image {image_name}")
                     sprite = arcade.Sprite(image_name, ratio)
                     sprite.properties['name'] = item['name']
@@ -85,9 +85,9 @@ class GameViewXML(arcade.View):
         # logger.debug(f"- Placements")
         # placement_list = data["placements"]
         # process_items(placement_list, self.piece_list)
-        # logger.debug(f"- Pieces")
-        # pieces_list = data["pieces"]
-        # process_items(pieces_list, self.piece_list)
+        logger.debug(f"- Pieces")
+        pieces_list = data["game_board"]["pieces"]
+        process_items(pieces_list, self.piece_list)
         # logger.debug(f"- Actions")
         # pieces_list = data["action_items"]
         # process_items(pieces_list, self.actions_list)

@@ -8,6 +8,7 @@ logger.setLevel(logging.DEBUG)
 
 
 class UserConnection:
+    """ Simple class to track what connection goes with what user """
     def __init__(self):
         self.channel = None
         self.user_name = None
@@ -48,7 +49,7 @@ class Server:
 
                 # Grab the command out of the list and process
                 command = data["command"]
-                logger.debug(command)
+                logger.debug(f"Server received command: {command}")
                 self.game.process_data(data, user_connection)
 
                 # The only command this thread cares about, disconnect
@@ -58,6 +59,7 @@ class Server:
                     user_connections_to_remove.append(user_connection)
 
                 # Send everyone an update
+                logger.debug(f"Server broadcasting game data: {self.game.game_data}")
                 self.channel_server.broadcast(self.game.game_data)
 
         for user_connection in user_connections_to_remove:
