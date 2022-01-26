@@ -1,8 +1,8 @@
 import socket
 import logging
 
-from network.constants import *
-from network.communications_channel import CommunicationsChannel
+from networked_game.network.constants import *
+from networked_game.network.communications_channel import CommunicationsChannel
 
 
 logger = logging.getLogger(__name__)

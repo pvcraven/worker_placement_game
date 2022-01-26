@@ -1,7 +1,4 @@
-import pytest
-
-
-from gui.dimension_calculations import calculate_screen_data
+from networked_game.gui.dimension_calculations import calculate_screen_data
 
 
 def test_calculate_screen_data():

@@ -1,7 +1,7 @@
 import logging
 
-from server.channel_server import ChannelServer
-from game_engine import GameEngine
+from networked_game.server.channel_server import ChannelServer
+from networked_game.game_engine import GameEngine
 from .user_connection import UserConnection
 
 logger = logging.getLogger(__name__)

@@ -3,7 +3,7 @@ import queue
 import json
 import logging
 
-from network.constants import *
+from .constants import *
 
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.DEBUG)

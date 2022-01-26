@@ -1,5 +1,5 @@
 import time
-from server.server import Server
+from networked_game.server import Server
 
 
 def main():

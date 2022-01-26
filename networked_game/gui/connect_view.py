@@ -1,8 +1,8 @@
 import arcade
 import arcade.gui
 
-from gui.waiting_for_players_view import WaitingForPlayersView
-from network.communications_channel import CommunicationsChannel
+from networked_game.gui.waiting_for_players_view import WaitingForPlayersView
+from networked_game.network.communications_channel import CommunicationsChannel
 
 
 class ConnectView(arcade.View):

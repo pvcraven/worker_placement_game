@@ -3,11 +3,11 @@ import logging
 import arcade
 import arcade.gui
 
-from server.get_ip_address import get_ip_address
-from gui.waiting_for_players_view import WaitingForPlayersView
-from gui.connect_view import ConnectView
-from server.server import Server
-from network.communications_channel import CommunicationsChannel
+from networked_game.server.get_ip_address import get_ip_address
+from networked_game.gui.waiting_for_players_view import WaitingForPlayersView
+from networked_game.gui.connect_view import ConnectView
+from networked_game.server.server import Server
+from networked_game.network.communications_channel import CommunicationsChannel
 
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.DEBUG)

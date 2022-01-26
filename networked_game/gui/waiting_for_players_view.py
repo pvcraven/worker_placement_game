@@ -2,7 +2,7 @@ import logging
 import arcade
 import arcade.gui
 
-from gui.game_view_xml import GameViewXML
+from networked_game.gui.game_view_xml import GameViewXML
 
 logger = logging.getLogger(__name__)
 

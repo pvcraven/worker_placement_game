@@ -2,7 +2,7 @@ import arcade
 import time
 import logging
 
-from gui.constants import *
+from .constants import *
 
 # logging.basicConfig(level=logging.DEBUG)
 logger = logging.getLogger(__name__)

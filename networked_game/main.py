@@ -1,6 +1,6 @@
 import arcade
-from gui.client_or_server_view import ClientOrServerView
-from gui.game_window import GameWindow
+from networked_game.gui.client_or_server_view import ClientOrServerView
+from networked_game.gui.game_window import GameWindow
 
 import logging
 logging.basicConfig(format='%(levelname)-7s %(filename)-35s %(lineno)-3d %(msecs)03d %(message)s', level=logging.DEBUG)
