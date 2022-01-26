@@ -2,16 +2,10 @@ import logging
 
 from server.channel_server import ChannelServer
 from game_engine import GameEngine
+from .user_connection import UserConnection
 
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.DEBUG)
-
-
-class UserConnection:
-    """ Simple class to track what connection goes with what user """
-    def __init__(self):
-        self.channel = None
-        self.user_name = None
 
 
 class Server:

@@ -15,18 +15,18 @@ class GameEngine:
         self.game_data = {"users": [],
                           "view": "waiting_for_players"}
 
-    def command_login(self, data, user_connection):
+    def command_login(self, data: dict, user_connection):
         user_name = data["user_name"]
         user = {"name": user_name}
         user_connection.user_name = user_name
         self.game_data["users"].append(user)
         logger.debug(f"Log in from  {user_connection.user_name}")
 
-    def command_logout(self, _data, user_connection):
+    def command_logout(self, _data: dict, user_connection):
         logger.debug(f"Logout from {user_connection.user_name}")
         self.game_data["users"].remove(user_connection.user_name)
 
-    def process_data(self, data, user_connection):
+    def process_data(self, data: dict, user_connection):
         command = data["command"]
 
         if command == "login":
