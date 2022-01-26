@@ -189,6 +189,7 @@ class GameViewXML(arcade.View):
         else:
             logger.debug(f"No item at dropped location")
 
-        for i, item in enumerate(self.held_items):
-            item.position = self.held_items_original_position[i]
+            for i, item in enumerate(self.held_items):
+                item.position = self.held_items_original_position[i]
+
         self.held_items = []
