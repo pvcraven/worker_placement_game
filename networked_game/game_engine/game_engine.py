@@ -6,7 +6,6 @@ import logging
 from .generate_game_board import generate_game_board
 
 logger = logging.getLogger(__name__)
-logger.setLevel(logging.DEBUG)
 
 
 class GameEngine:
@@ -39,7 +38,7 @@ class GameEngine:
         elif command == "start_game":
             logger.debug(f"start_game command")
             self.game_data["view"] = "game_view"
-            self.game_data["game_board"] = generate_game_board()
+            self.game_data["game_board"] = generate_game_board(self.game_data["users"])
 
         elif command == "move_piece":
             logger.debug(f"move_piece command")
