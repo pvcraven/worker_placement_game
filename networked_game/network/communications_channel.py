@@ -6,7 +6,6 @@ import logging
 from .constants import *
 
 logger = logging.getLogger(__name__)
-logger.setLevel(logging.DEBUG)
 
 
 class CommunicationsChannel:
