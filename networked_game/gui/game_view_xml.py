@@ -36,7 +36,7 @@ class GameViewXML(arcade.View):
         # they have to go back.
         self.held_items_original_position = []
 
-        self.svg = process_svg("gui/layout.svg")
+        self.svg = process_svg("networked_game/gui/layout.svg")
 
         self.process_game_data(self.window.game_data)
 
@@ -66,21 +66,46 @@ class GameViewXML(arcade.View):
         logger.debug(f"{self.svg.width=}, {self.svg.height=}, {self.window.width=}, {self.window.height=}")
         logger.debug(f"{origin_x=}, {origin_y=}, {ratio=}")
 
+        locations = {}
+
         def process_items(items, sprite_list):
+            """ Create sprites and put them in the correct location"""
+
+            # Loop through each item in the list we are given
             for item in items:
                 logger.debug(f"Placing {item['name']}, {item['location']}")
+
+                # Get the rect for this location from the SVG
                 rect = get_rect_for_name(self.svg, item["location"])
-                if rect:
-                    cx, cy, width, height = get_rect_info(rect, origin_x, origin_y, ratio)
-                    image_name = lookup_image(item['name'])
-                    logger.debug(f"Drawing with image {image_name}")
-                    sprite = arcade.Sprite(image_name, ratio)
-                    sprite.properties['name'] = item['name']
-                    sprite.position = cx, cy
-                    sprite_list.append(sprite)
-                    logger.debug(f"Placed {item['name']} located at {item['location']} at ({cx}, {cy})")
+                if not rect:
+                    logger.warning(f"Can't find location named {item['location']} to place {item['name']}.")
+                    continue
+
+                # Get rect, adjusted for our screen dimensions
+                cx, cy, width, height = get_rect_info(rect, origin_x, origin_y, ratio)
+
+                # Figure out what image to use for this sprite
+                image_name = lookup_image(item['name'])
+
+                if not image_name:
+                    logger.warning(f"Can't find image for {item['location']}, so can't create sprite.")
+                    continue
+
+                # Create sprite
+                logger.debug(f"Drawing with image {image_name}")
+                sprite = arcade.Sprite(image_name, ratio)
+                sprite.properties['name'] = item['name']
+                sprite.position = cx, cy
+                sprite_list.append(sprite)
+                logger.debug(f"Placed {item['name']} located at {item['location']} at ({cx}, {cy})")
+
+                # What if there is another sprite at the same location? This will offset it
+                if item['location'] in locations:
+                    for other_sprite in locations[item['location']]:
+                        other_sprite.center_x += 15
+                    locations[item['location']].append(sprite)
                 else:
-                    logger.warning(f"Can't find location for {item['location']}")
+                    locations[item['location']] = [sprite]
 
         # logger.debug(f"- Placements")
         # placement_list = data["placements"]

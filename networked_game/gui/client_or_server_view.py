@@ -4,10 +4,7 @@ import arcade
 import arcade.gui
 
 from networked_game.server.get_ip_address import get_ip_address
-from networked_game.gui.waiting_for_players_view import WaitingForPlayersView
 from networked_game.gui.connect_view import ConnectView
-from networked_game.server.server import Server
-from networked_game.network.communications_channel import CommunicationsChannel
 
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.DEBUG)
@@ -72,27 +69,8 @@ class ClientOrServerView(arcade.View):
 
         @server_button.event("on_click")
         def on_click_settings(_event):
-            logger.debug(f"Starting server with user name {self.window.user_name}")
-
-            server_address = get_ip_address()
-            server_port = 10000
-
-            # Create server
-            self.window.server = Server(server_address, server_port)
-
-            # Create server view
-            view = WaitingForPlayersView(server=self.window.server)
-            self.window.show_view(view)
-            self.window.user_name = self.name_input_box.text
-
-            user_name = self.window.user_name
-            self.window.communications_channel = CommunicationsChannel(their_ip=server_address,
-                                                                       their_port=server_port)
-            self.window.communications_channel.connect()
-            data = {"command": "login", "user_name": user_name}
-            self.window.communications_channel.send_queue.put(data)
-
-            self.window.server.server_check()
+            logger.debug(f"Starting server with user name {self.name_input_box.text}")
+            self.window.start_server(self.name_input_box.text, get_ip_address(), 10000)
 
         self.gui_manager.add(server_button)
 
@@ -106,7 +84,7 @@ class ClientOrServerView(arcade.View):
             view = ConnectView()
             self.window.show_view(view)
             self.window.user_name = self.name_input_box.text
-            logger.debug(f"Starting server with user name {self.window.user_name}")
+            logger.debug(f"Starting client with user name {self.window.user_name}")
 
         self.gui_manager.add(client_button)
 

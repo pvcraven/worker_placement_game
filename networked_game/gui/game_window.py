@@ -3,6 +3,10 @@ import time
 import logging
 
 from .constants import *
+from networked_game.gui.waiting_for_players_view import WaitingForPlayersView
+from networked_game.server.server import Server
+from networked_game.network.communications_channel import CommunicationsChannel
+from networked_game.gui.connect_view import ConnectView
 
 # logging.basicConfig(level=logging.DEBUG)
 logger = logging.getLogger(__name__)
@@ -27,3 +31,31 @@ class GameWindow(arcade.Window):
             self.communications_channel.close()
         logger.debug("Closed.")
         self.close()
+
+    def start_server(self, user_name, server_address, server_port):
+        logger.debug(f"Starting server with user name {user_name}")
+
+        # Create server
+        self.server = Server(server_address, server_port)
+
+        # Create server view
+        view = WaitingForPlayersView(server=self.server)
+        self.show_view(view)
+        self.user_name = user_name
+
+        self.communications_channel = CommunicationsChannel(their_ip=server_address,
+                                                            their_port=server_port)
+        self.communications_channel.connect()
+        data = {"command": "login", "user_name": user_name}
+        self.communications_channel.send_queue.put(data)
+
+        self.server.server_check()
+
+    def connect_to_server(self, user_name, server_address, server_port):
+        self.communications_channel = CommunicationsChannel(their_ip=server_address, their_port=server_port)
+        self.communications_channel.connect()
+        data = {"command": "login", "user_name": user_name}
+        self.communications_channel.send_queue.put(data)
+
+        view = WaitingForPlayersView()
+        self.show_view(view)
