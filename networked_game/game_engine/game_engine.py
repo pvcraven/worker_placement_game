@@ -4,6 +4,7 @@ import logging
 # from game_engine.constants import *
 # from game_engine.placements import placements
 from .generate_game_board import generate_game_board
+from .move_piece import move_piece
 
 logger = logging.getLogger(__name__)
 
@@ -42,9 +43,4 @@ class GameEngine:
 
         elif command == "move_piece":
             logger.debug(f"move_piece command")
-
-            destination = data["destination"]
-            piece_name = data["name"]
-            for piece in self.game_data["game_board"]["pieces"]:
-                if piece["name"] == piece_name:
-                    piece["location"] = destination
+            move_piece(data, self.game_data)
