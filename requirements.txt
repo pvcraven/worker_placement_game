@@ -1,1 +1,3 @@
-arcade
+arcade==2.7.1dev5
+pytest
+

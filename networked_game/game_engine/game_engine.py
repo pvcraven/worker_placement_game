@@ -1,46 +1,36 @@
 import logging
-
-# from gui.constants import *
-# from game_engine.constants import *
-# from game_engine.placements import placements
-from .generate_game_board import generate_game_board
-from .move_piece import move_piece
+from networked_game.game_engine import commands
+from networked_game.util import merge_dicts
 
 logger = logging.getLogger(__name__)
+
+
+class Command:
+
+    def process(self, data, user_connection, game_data):
+        pass
 
 
 class GameEngine:
 
     def __init__(self):
-        self.game_data = {"users": [],
-                          "view": "waiting_for_players"}
+        self.game_data = {"users": {},
+                          "state": "waiting_for_players",
+                          "board": {}
+                          }
 
-    def command_login(self, data: dict, user_connection):
-        user_name = data["user_name"]
-        user = {"name": user_name}
-        user_connection.user_name = user_name
-        self.game_data["users"].append(user)
-        logger.debug(f"Log in from  {user_connection.user_name}")
+        self.commands = []
+        self.commands.append(commands.Login())
+        self.commands.append(commands.Logout())
+        self.commands.append(commands.StartGame())
+        self.commands.append(commands.Move())
+        self.commands.append(commands.FinishRound())
+        self.commands.append(commands.EndGame())
 
-    def command_logout(self, _data: dict, user_connection):
-        logger.debug(f"Logout from {user_connection.user_name}")
-        self.game_data["users"].remove(user_connection.user_name)
+    def process_data(self, data: dict, user_connection) -> dict:
+        full_result = {}
+        for command in self.commands:
+            command_result = command.process(data, user_connection, self.game_data)
+            full_result = merge_dicts(full_result, command_result)
 
-    def process_data(self, data: dict, user_connection):
-        command = data["command"]
-
-        if command == "login":
-            logger.debug(f"login command")
-            self.command_login(data, user_connection)
-        elif command == "logout":
-            logger.debug(f"logout command")
-            self.command_logout(data, user_connection)
-
-        elif command == "start_game":
-            logger.debug(f"start_game command")
-            self.game_data["view"] = "game_view"
-            self.game_data["game_board"] = generate_game_board(self.game_data["users"])
-
-        elif command == "move_piece":
-            logger.debug(f"move_piece command")
-            move_piece(data, self.game_data)
+        return full_result
