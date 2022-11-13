@@ -70,8 +70,17 @@ def test_game_engine():
         for turn in range(3):
             # Make a move
             board = game_engine.game_data['board']
-            user = board['round_moves'][0]
-            data = {'command': 'move'}
+            player = board['round_moves'][0]
+            user = board['players'][player]['login_name']
+            position = f'{player}_hold'
+            assert 'piece_positions' in board
+            assert position in board['piece_positions']
+            assert len(board['piece_positions'][position])
+            piece = board['piece_positions'][position]['pieces'][0]
+            data = {'command': 'move',
+                    'piece': piece,
+                    'to_position': f'position_{turn + 1}'
+                    }
             user_connection = get_connection_for_user(user)
             result = game_engine.process_data(data, user_connection)
             assert result['messages'][0] == 'move_finished'
