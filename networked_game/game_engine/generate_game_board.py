@@ -45,11 +45,10 @@ def generate_game_board(game_data):
         piece_name = f"{player}_piece_1"
         position_name = f'{player}_hold'
         piece = {
-            piece_name: {
-              'start_round_position': position_name,
-              'owner': player
-            }
-        }
+                 'start_round_position': position_name,
+                 'owner': player
+                }
+
         board['pieces'][piece_name] = piece
         board['piece_positions'][position_name]['pieces'].append(piece_name)
 
