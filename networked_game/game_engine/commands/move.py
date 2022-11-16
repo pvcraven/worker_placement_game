@@ -44,6 +44,14 @@ class Move(Command):
         if current_piece_position != start_piece_position:
             return {'messages': ['piece_already_moved']}
 
+        # Run actions for the space
+        if 'actions' in board['piece_positions'][destination_position]:
+            for action_name in board['piece_positions'][destination_position]['actions']:
+                if action_name == 'get_resources':
+                    for resource_name in board['piece_positions'][destination_position]['actions']['get_resources']:
+                        resource_value = board['piece_positions'][destination_position]['actions']['get_resources'][resource_name]
+                        board['players'][player_name]['resources'][resource_name] += resource_value
+
         # Everything ok -- move piece
         move_piece(piece_name, current_piece_position, destination_position, board)
 
