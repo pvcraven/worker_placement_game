@@ -28,10 +28,17 @@ class Move(Command):
         if user_connection.user_name != user_whose_turn_it_is:
             return {'messages': ['not_your_turn']}
 
+        # Rule -- piece must exist
+        if piece_name not in board['pieces']:
+            return {'messages': ['unknown_piece_name']}
         # Rule -- must have ownership of piece
         piece = board['pieces'][piece_name]
         if piece['owner'] != player_name:
             return {'messages': ['not_your_piece']}
+
+        # Rule -- spot must exist
+        if data['to_position'] not in board['piece_positions']:
+            return {'messages': ['unknown_piece_position']}
 
         # Rule -- can only move to spots with available space
         position = board['piece_positions'][data['to_position']]
