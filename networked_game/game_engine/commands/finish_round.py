@@ -2,6 +2,7 @@ import logging
 from . import Command
 from networked_game.game_engine.start_round import start_round
 from networked_game.util import merge_dicts
+from networked_game.game_engine.piece_util_functions import reset_piece_positions
 
 logger = logging.getLogger(__name__)
 
@@ -30,6 +31,7 @@ class FinishRound(Command):
 
         # Advance to the next round
         board['round'] += 1
+        reset_piece_positions(board)
         start_round(game_data)
 
         return merge_dicts(result, {'messages': ['new_round']})

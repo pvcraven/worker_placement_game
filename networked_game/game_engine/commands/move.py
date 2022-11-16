@@ -1,15 +1,11 @@
 import logging
 from . import Command
 
+from networked_game.game_engine.piece_util_functions import get_player_from_username
+from networked_game.game_engine.piece_util_functions import get_piece_position
+from networked_game.game_engine.piece_util_functions import move_piece
+
 logger = logging.getLogger(__name__)
-
-
-def get_player_from_username(user_name, game_data):
-    for player_name in game_data['board']['players']:
-        player = game_data['board']['players'][player_name]
-        if player['login_name'] == user_name:
-            return player_name
-    return None
 
 
 class Move(Command):
@@ -21,6 +17,9 @@ class Move(Command):
         player_name = get_player_from_username(user_name, game_data)
         board = game_data['board']
 
+        destination_position = data['to_position']
+        piece_name = data['piece']
+
         logger.debug(f"Move request from  {user_name}")
 
         # Rule -- must be your turn
@@ -30,7 +29,6 @@ class Move(Command):
             return {'messages': ['not_your_turn']}
 
         # Rule -- must have ownership of piece
-        piece_name = data['piece']
         piece = board['pieces'][piece_name]
         if piece['owner'] != player_name:
             return {'messages': ['not_your_piece']}
@@ -41,11 +39,15 @@ class Move(Command):
             return {'messages': ['position_full']}
 
         # Rule -- must be from player's hold space
-        piece_position = piece['start_round_position']
+        current_piece_position = get_piece_position(piece_name, game_data)
+        start_piece_position = piece['start_round_position']
+        if current_piece_position != start_piece_position:
+            return {'messages': ['piece_already_moved']}
 
         # Everything ok -- move piece
+        move_piece(piece_name, current_piece_position, destination_position, board)
 
-                # Move successful
+        # Move successful
         del board['round_moves'][0]
 
         return {'messages': ['move_finished']}
