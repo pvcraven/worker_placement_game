@@ -15,26 +15,7 @@ def generate_game_board(game_data):
              "turn_phase": 1,
              "max_rounds": 8,
              "players": {},
-             "piece_positions": {'player_1_hold': {'max_pieces': 0, 'pieces': []},
-                                 'player_2_hold': {'max_pieces': 0, 'pieces': []},
-                                 'player_3_hold': {'max_pieces': 0, 'pieces': []},
-                                 'player_4_hold': {'max_pieces': 0, 'pieces': []},
-                                 'position_1': {'max_pieces': 1, 'pieces': [], 'actions': {
-                                     'get_resources': {'black': 2}
-                                 }},
-                                 'position_2': {'max_pieces': 1, 'pieces': [], 'actions': {
-                                     'get_resources': {'orange': 2}
-                                 }},
-                                 'position_3': {'max_pieces': 1, 'pieces': [], 'actions': {
-                                     'get_resources': {'purple': 1}
-                                 }},
-                                 'position_4': {'max_pieces': 1, 'pieces': [], 'actions': {
-                                     'get_resources': {'white': 1}
-                                 }},
-                                 'position_5': {'max_pieces': 1, 'pieces': [], 'actions': {
-                                     'get_resources': {'coins': 4}
-                                 }},
-                                 },
+             "piece_positions": {},
              "pieces": {},
              "piece_locations": [['player_1_piece_1', 'position_1']],
              "card_positions": [],
@@ -59,6 +40,30 @@ def generate_game_board(game_data):
             }
         }
         board['players'][player_name] = player_info
+
+    # Generate piece positions
+    board['piece_positions'] = {
+      'position_1': {'max_pieces': 1, 'pieces': [], 'actions': {
+          'get_resources': {'black': 2}
+      }},
+      'position_2': {'max_pieces': 1, 'pieces': [], 'actions': {
+          'get_resources': {'orange': 2}
+      }},
+      'position_3': {'max_pieces': 1, 'pieces': [], 'actions': {
+          'get_resources': {'purple': 1}
+      }},
+      'position_4': {'max_pieces': 1, 'pieces': [], 'actions': {
+          'get_resources': {'white': 1}
+      }},
+      'position_5': {'max_pieces': 1, 'pieces': [], 'actions': {
+          'get_resources': {'coins': 4}
+      }}
+    }
+    for player_no in range(1, player_count + 1):
+        position = {
+          f'player_{player_no}_hold': {'max_pieces': 0, 'pieces': []}
+        }
+        board['piece_positions'].update(position)
 
     # Generate pieces
     for player in board['players']:
