@@ -84,6 +84,13 @@ def test_game_engine():
             user_connection = get_connection_for_user(user)
             result = game_engine.process_data(data, user_connection)
             assert result['messages'][0] == 'move_finished'
+            assert board['turn_phase'] == 'finish_quest'
+
+            # Finish quest phase
+            data = {'command': 'finish_quest'}
+            user_connection = get_connection_for_user(user)
+            result = game_engine.process_data(data, user_connection)
+            assert result['messages'][0] == 'finish_quest_phase_finished'
 
         # Did we finish the round?
         assert result['messages'][1] == 'finished_round'

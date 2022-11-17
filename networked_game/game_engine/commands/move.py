@@ -13,6 +13,12 @@ class MoveRule:
         return {}
 
 
+class MustBeMovePhase(MoveRule):
+    def check(self, board, player_name, piece_name, destination_position):
+        if board['turn_phase'] != 'move':
+            return {'messages': ['wrong_turn_phase']}
+
+
 class YourTurnRule(MoveRule):
     def check(self, board, player_name, piece_name, destination_position):
         player_whose_turn_it_is = board['round_moves'][0]
@@ -30,6 +36,7 @@ class Move(Command):
     def __init__(self):
         self.rules = []
         self.rules.append(YourTurnRule())
+        self.rules.append(MustBeMovePhase())
         self.rules.append(PieceMustExist())
 
     def process(self, data, user_connection, game_data) -> dict:
@@ -84,6 +91,6 @@ class Move(Command):
         move_piece(piece_name, current_piece_position, destination_position, board)
 
         # Move successful
-        del board['round_moves'][0]
+        board['turn_phase'] = 'finish_quest'
 
         return {'messages': ['move_finished']}

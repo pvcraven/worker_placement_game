@@ -5,3 +5,4 @@ from .start_game import StartGame
 from .move import Move
 from .finish_round import FinishRound
 from .end_game import EndGame
+from .finish_quest import FinishQuest

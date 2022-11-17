@@ -24,6 +24,7 @@ class GameEngine:
         self.commands.append(commands.Logout())
         self.commands.append(commands.StartGame())
         self.commands.append(commands.Move())
+        self.commands.append(commands.FinishQuest())
         self.commands.append(commands.FinishRound())
         self.commands.append(commands.EndGame())
 
