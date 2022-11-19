@@ -8,47 +8,83 @@ def print_result_data(result_data):
             print(f"Message: {message}")
 
 
-def format_resources(resources):
+def print_card(board, quest_card_name):
+    resources = board['quest_cards'][quest_card_name]['resources']
+    resources_string = format_resources(resources, True)
+    reward = board['quest_cards'][quest_card_name]['rewards']
+    reward_string = format_resources(reward, True)
+    print(f"  {quest_card_name}: {resources_string} -> {reward_string}")
+
+
+def format_resources(resources, skip_blanks):
     points = resources['points'] if 'points' in resources else 0
     black = resources['black'] if 'black' in resources else 0
     orange = resources['orange'] if 'orange' in resources else 0
     purple = resources['purple'] if 'purple' in resources else 0
     white = resources['white'] if 'white' in resources else 0
     coins = resources['coins'] if 'coins' in resources else 0
-    result = f"Points: {points:3} " \
-        f"B:{black:2} " \
-        f"O:{orange:2} " \
-        f"P:{purple:2} " \
-        f"W:{white:2} " \
-        f"C:{coins:2}"
+    result = ""
+
+    if points or not skip_blanks:
+        result += f" Points: {points:3}"
+    if black or not skip_blanks:
+        result += f" B: {black:2}"
+    if orange or not skip_blanks:
+        result += f" O: {orange:2}"
+    if purple or not skip_blanks:
+        result += f" P: {purple:2}"
+    if white or not skip_blanks:
+        result += f" W: {white:2}"
+    if coins or not skip_blanks:
+        result += f" C: {coins:2}"
+
     return result
 
 
 def print_board(board):
     game_round = board['round']
     current_players_turn = board['round_moves'][0]
+
+    # Print round information
     print()
     print(f"--- Round: {game_round}  Player Turn: {current_players_turn}")
 
+    # Print piece positions
     for position in board['piece_positions']:
-        print(position)
+        resources_string = ""
+        if 'actions' in board['piece_positions'][position]:
+            actions = board['piece_positions'][position]['actions']
+            if 'get_resources' in actions:
+                resources = actions['get_resources']
+                resources_string = format_resources(resources, True)
+        print(f"{position} {resources_string}")
+
         for piece in board['piece_positions'][position]['pieces']:
             print(f"  {piece}")
-    print("--- Player Resources ---")
+
+    # Print quest draw pile
+    print("-- Quest draw pile")
+    for quest_card_name in board['quest_draw_pile']:
+        print_card(board, quest_card_name)
+
+    # Print players
+    print("-- Player Resources")
     for player_name in board['players']:
+        # Print player name
         player = board['players'][player_name]
         login_name = player['login_name']
-        resources = player['resources']
-        out = f"{login_name:20} --> {format_resources(resources)}"
+        print(f"{login_name} = {player_name}")
 
+        # Print resources
+        resources = player['resources']
+        out = f" {format_resources(resources, False)}"
         print(out)
+
+        # Print player quests
         for quest_card_name in player['uncompleted_quest_cards']:
-            resources = board['quest_cards'][quest_card_name]['resources']
-            resources_string = format_resources(resources)
-            reward = board['quest_cards'][quest_card_name]['rewards']
-            reward_string = format_resources(reward)
-            print(f"  {quest_card_name}: {resources_string} -> {reward_string}")
-        print(f"Completed {len(player['completed_quest_cards'])} quest(s).")
+            print_card(board, quest_card_name)
+
+        print(f"  Completed {len(player['completed_quest_cards'])} quest(s).")
 
 
 def main():
@@ -65,7 +101,7 @@ def main():
 
     board = game_engine.game_data['board']
 
-    for turn in range(8):
+    while not board['game_over']:
         # Print board
         print_board(board)
         print()
@@ -96,6 +132,9 @@ def main():
 
             # Print results
             print_result_data(result)
+
+    print()
+    print("---- Game Over---")
 
 
 main()

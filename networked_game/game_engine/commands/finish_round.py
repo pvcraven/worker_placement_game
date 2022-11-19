@@ -30,8 +30,11 @@ class FinishRound(Command):
             return result
 
         # Advance to the next round
-        board['round'] += 1
-        reset_piece_positions(board)
-        start_round(game_data)
+        if board['round'] == board['max_rounds']:
+            board['game_over'] = True
+        else:
+            board['round'] += 1
+            reset_piece_positions(board)
+            start_round(game_data)
 
         return merge_dicts(result, {'messages': ['new_round']})
