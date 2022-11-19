@@ -11,11 +11,11 @@ def generate_game_board(game_data):
     cards = {
         'quest_1': {
            'resources': {'black': 4, 'orange': 1},
-           'reward': {'points': 10}
+           'rewards': {'points': 10}
         },
         'quest_2': {
             'resources': {'purple': 2, 'white': 1},
-            'reward': {'points': 11}
+            'rewards': {'points': 11}
         }
     }
     board = {"player_move_order": [],
@@ -28,7 +28,8 @@ def generate_game_board(game_data):
              "piece_positions": {},
              "pieces": {},
              "piece_locations": [['player_1_piece_1', 'position_1']],
-             "cards": cards}
+             "quest_cards": cards,
+             }
 
     # Generate player info
     users = game_data["users"]
@@ -46,7 +47,8 @@ def generate_game_board(game_data):
                 'white': 0,
                 'coins': 0,
             },
-            'quest_cards': ['quest_1', 'quest_2']
+            'uncompleted_quest_cards': ['quest_1', 'quest_2'],
+            'completed_quest_cards': []
         }
         board['players'][player_name] = player_info
 

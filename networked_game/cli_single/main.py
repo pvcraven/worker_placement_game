@@ -42,12 +42,13 @@ def print_board(board):
         out = f"{login_name:20} --> {format_resources(resources)}"
 
         print(out)
-        for quest_card_name in player['quest_cards']:
-            resources = board['cards'][quest_card_name]['resources']
+        for quest_card_name in player['uncompleted_quest_cards']:
+            resources = board['quest_cards'][quest_card_name]['resources']
             resources_string = format_resources(resources)
-            reward = board['cards'][quest_card_name]['reward']
+            reward = board['quest_cards'][quest_card_name]['rewards']
             reward_string = format_resources(reward)
             print(f"  {quest_card_name}: {resources_string} -> {reward_string}")
+        print(f"Completed {len(player['completed_quest_cards'])} quest(s).")
 
 
 def main():
@@ -95,5 +96,6 @@ def main():
 
             # Print results
             print_result_data(result)
+
 
 main()
