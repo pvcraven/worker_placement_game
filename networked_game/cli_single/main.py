@@ -1,5 +1,9 @@
+import logging
+
 from networked_game.game_engine import GameEngine
 from networked_game.server.user_connection import UserConnection
+
+logger = logging.getLogger(__name__)
 
 
 def print_result_data(result_data):
@@ -43,11 +47,13 @@ def format_resources(resources, skip_blanks):
 
 def print_board(board):
     game_round = board['round']
-    current_players_turn = board['round_moves'][0]
+    round_move = board['round_moves'][0]
+    action = round_move['action']
+    current_players_turn = round_move['player']
 
     # Print round information
     print()
-    print(f"--- Round: {game_round}  Player Turn: {current_players_turn}")
+    print(f"--- Round: {game_round} - Action: {action} - Player Turn: {current_players_turn}")
 
     # Print piece positions
     for position in board['piece_positions']:
@@ -89,6 +95,7 @@ def print_board(board):
 
 def main():
     # Startup
+    # logging.basicConfig(level=logging.DEBUG)
     game_engine = GameEngine()
     user_name = f'My User Name'
     data = {'command': 'login', 'user_name': user_name}
@@ -103,13 +110,15 @@ def main():
 
     while not board['game_over']:
         # Print board
+        round_move = board['round_moves'][0]
         print_board(board)
         print()
 
-        if board['turn_phase'] == 'move':
+        if round_move['action'] == 'move':
             # Get user move
-            piece_name = input("Piece:    ")
-            position_name = input("Position: ")
+            # piece_name = input("Piece:    ")
+            piece_name = 'player_1_piece_1'
+            position_name = input(f"Move {piece_name} to position: ")
             print()
 
             # Process user move
@@ -122,10 +131,21 @@ def main():
             # Print results
             print_result_data(result)
 
-        elif board['turn_phase'] == 'finish_quest':
+        if round_move['action'] == 'finish_quest':
             # Ask if we want to finish a quest
             quest_name = input("Finish Quest: ")
             data = {'command': 'finish_quest',
+                    'quest_name': quest_name,
+                    }
+            result = game_engine.process_data(data, user_connection)
+
+            # Print results
+            print_result_data(result)
+
+        if round_move['action'] == 'pick_quest_card':
+            # Ask if we want to pick a quest
+            quest_name = input("Pick Quest: ")
+            data = {'command': 'pick_quest_card',
                     'quest_name': quest_name,
                     }
             result = game_engine.process_data(data, user_connection)

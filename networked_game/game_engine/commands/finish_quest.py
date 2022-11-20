@@ -52,8 +52,7 @@ class FinishQuest(Command):
             board['players'][player_name]['uncompleted_quest_cards'].remove(quest_name)
             board['players'][player_name]['completed_quest_cards'].append(quest_name)
 
-        # Move to next player
-        board['turn_phase'] = 'move'
-        del board['round_moves'][0]
+        # Pop off this action
+        board['round_moves'].pop(0)
 
         return {'messages': ['finish_quest_phase_finished']}

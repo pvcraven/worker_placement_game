@@ -1,6 +1,7 @@
 import random
 import logging
 
+from networked_game.game_engine.quest_cards import quest_cards
 
 logger = logging.getLogger(__name__)
 
@@ -9,42 +10,9 @@ def generate_game_board(game_data):
     """ Generate our game board """
 
     # Quest cards
-    cards = {
-        'quest_1': {
-           'resources': {'black': 4, 'orange': 1},
-           'rewards': {'points': 10}
-        },
-        'quest_2': {
-            'resources': {'purple': 2, 'white': 1},
-            'rewards': {'points': 11}
-        },
-        'quest_3': {
-            'resources': {'purple': 2, 'black': 3},
-            'rewards': {'points': 15}
-        },
-        'quest_4': {
-            'resources': {'black': 1, 'orange': 1, 'purple': 1},
-            'rewards': {'points': 7}
-        },
-        'quest_5': {
-            'resources': {'white': 5},
-            'rewards': {'points': 25}
-        },
-        'quest_6': {
-            'resources': {'purple': 5},
-            'rewards': {'points': 25}
-        },
-        'quest_7': {
-            'resources': {'orange': 5, 'white': 2},
-            'rewards': {'points': 15}
-        },
-        'quest_8': {
-            'resources': {'white': 3},
-            'rewards': {'points': 5, 'black': 4}
-        },
-    }
+
     quest_card_deck = []
-    for quest_name in cards:
+    for quest_name in quest_cards:
         quest_card_deck.append(quest_name)
     random.shuffle(quest_card_deck)
 
@@ -97,7 +65,11 @@ def generate_game_board(game_data):
       }},
       'position_5': {'max_pieces': 1, 'pieces': [], 'actions': {
           'get_resources': {'coins': 4}
-      }}
+      }},
+      'position_6': {'max_pieces': 1, 'pieces': [], 'actions': {
+          'pick_quest_card': 'quest_draw_pile'
+      }},
+
     }
     for player_no in range(1, player_count + 1):
         position = {
@@ -122,14 +94,12 @@ def generate_game_board(game_data):
     board = {"player_move_order": [],
              "round_moves": [],
              "round": 1,
-             "turn": 1,
-             "turn_phase": 'move',
              "max_rounds": 8,
              "players": players,
              "piece_positions": piece_positions,
              "pieces": pieces,
              "piece_locations": [['player_1_piece_1', 'position_1']],
-             "quest_cards": cards,
+             "quest_cards": quest_cards,
              "quest_card_deck": quest_card_deck,
              "quest_card_discard_deck": [],
              "quest_draw_pile": quest_draw_pile,

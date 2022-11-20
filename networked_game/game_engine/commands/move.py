@@ -15,14 +15,16 @@ class MoveRule:
 
 class MustBeMovePhase(MoveRule):
     def check(self, board, player_name, piece_name, destination_position):
-        if board['turn_phase'] != 'move':
+        move = board['round_moves'][0]
+        if move['action'] != 'move':
             return {'messages': ['wrong_turn_phase']}
 
 
 class YourTurnRule(MoveRule):
     def check(self, board, player_name, piece_name, destination_position):
-        player_whose_turn_it_is = board['round_moves'][0]
+        player_whose_turn_it_is = board['round_moves'][0]['player']
         if player_name != player_whose_turn_it_is:
+            logger.debug(f" {player_name=} != {player_whose_turn_it_is=}")
             return {'messages': ['not_your_turn']}
 
 
@@ -78,6 +80,11 @@ class Move(Command):
         if current_piece_position != start_piece_position:
             return {'messages': ['piece_already_moved']}
 
+        # All rules passed
+
+        # Pop off this action
+        board['round_moves'].pop(0)
+
         # Run actions for the space
         if 'actions' in board['piece_positions'][destination_position]:
             for action_name in board['piece_positions'][destination_position]['actions']:
@@ -86,11 +93,11 @@ class Move(Command):
                     for resource_name in get_resources:
                         resource_value = get_resources[resource_name]
                         board['players'][player_name]['resources'][resource_name] += resource_value
+                if action_name == 'pick_quest_card':
+                    board['round_moves'].insert(0, {'action': 'pick_quest_card', 'player': player_name})
 
         # Everything ok -- move piece
         move_piece(piece_name, current_piece_position, destination_position, board)
 
         # Move successful
-        board['turn_phase'] = 'finish_quest'
-
         return {'messages': ['move_finished']}
