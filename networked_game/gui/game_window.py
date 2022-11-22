@@ -2,7 +2,7 @@ import arcade
 import time
 import logging
 
-from .constants import *
+from networked_game.gui.constants import *
 from networked_game.gui.waiting_for_players_view import WaitingForPlayersView
 from networked_game.server.server import Server
 from networked_game.network.communications_channel import CommunicationsChannel

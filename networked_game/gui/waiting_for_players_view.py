@@ -52,7 +52,7 @@ class WaitingForPlayersView(arcade.View):
         if not self.window.communications_channel.receive_queue.empty():
             data = self.window.communications_channel.receive_queue.get()
             self.window.game_data = data
-            if data["view"] == "game_view":
+            if data["state"] == "running":
                 logger.debug("Message received, switching to game view.")
                 view = GameViewXML()
                 self.window.show_view(view)
@@ -92,7 +92,7 @@ class WaitingForPlayersView(arcade.View):
             users = self.window.game_data["users"]
             for user in users:
                 y -= 30
-                arcade.draw_text(user["name"],
+                arcade.draw_text(user,
                                  start_x=x,
                                  start_y=y,
                                  color=arcade.color.WHITE,

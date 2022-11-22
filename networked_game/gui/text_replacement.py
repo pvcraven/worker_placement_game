@@ -1,4 +1,6 @@
 def text_replacement(text, game_data):
-    text = text.replace("#users-0-name#", game_data["users"][0]["name"])
+    board = game_data['board']
+    players = board['players']
+    text = text.replace("#users-0-name#", players['player_1']["login_name"])
 
     return text

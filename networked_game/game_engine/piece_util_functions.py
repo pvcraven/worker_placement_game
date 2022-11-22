@@ -7,8 +7,8 @@ def get_player_from_username(user_name, game_data):
     return None
 
 
-def get_piece_position(piece_name, game_data):
-    positions = game_data['board']['piece_positions']
+def get_piece_position(piece_name: str, board: dict):
+    positions = board['piece_positions']
     for position_name in positions:
         piece_position = positions[position_name]
         pieces = piece_position['pieces']
