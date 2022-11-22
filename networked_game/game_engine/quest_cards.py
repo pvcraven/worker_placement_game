@@ -31,4 +31,12 @@ quest_cards = {
         'resources': {'white': 3},
         'rewards': {'points': 5, 'black': 4}
     },
+    'quest_9': {
+        'resources': {'black': 2, 'orange': 8},
+        'rewards': {'points': 10, 'coins': 4}
+    },
+    'quest_10': {
+        'resources': {'orange': 2, 'black': 8},
+        'rewards': {'points': 10, 'purple': 2}
+    },
 }

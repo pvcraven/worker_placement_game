@@ -70,7 +70,7 @@ def test_game_engine():
         for turn in range(3):
             # Make a move
             board = game_engine.game_data['board']
-            player = board['round_moves'][0]
+            player = board['round_moves'][0]['player']
             user = board['players'][player]['login_name']
             position = f'{player}_hold'
             assert 'piece_positions' in board
@@ -84,7 +84,7 @@ def test_game_engine():
             user_connection = get_connection_for_user(user)
             result = game_engine.process_data(data, user_connection)
             assert result['messages'][0] == 'move_finished'
-            assert board['turn_phase'] == 'finish_quest'
+            assert board['round_moves'][0]['action'] == 'finish_quest'
 
             # Finish quest phase
             data = {'command': 'finish_quest'}

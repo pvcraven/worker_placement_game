@@ -75,7 +75,7 @@ class Move(Command):
             return {'messages': ['position_full']}
 
         # Rule -- must be from player's hold space
-        current_piece_position = get_piece_position(piece_name, game_data)
+        current_piece_position = get_piece_position(piece_name, board)
         start_piece_position = piece['start_round_position']
         if current_piece_position != start_piece_position:
             return {'messages': ['piece_already_moved']}

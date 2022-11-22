@@ -39,36 +39,44 @@
      id="layer1">
     <rect
        style="fill:#c6c4ed;fill-opacity:0.996255;stroke:#000000;stroke-width:1.03464;stroke-miterlimit:4;stroke-dasharray:none"
-       id="placement-00"
+       id="player_1_hold"
+       width="32.832027"
+       height="32.832027"
+       x="4.7506537"
+       y="54.7506533"
+       inkscape:label="player_1_hold" />
+    <rect
+       style="fill:#c6c4ed;fill-opacity:0.996255;stroke:#000000;stroke-width:1.03464;stroke-miterlimit:4;stroke-dasharray:none"
+       id="position_1"
        width="32.832027"
        height="32.832027"
        x="4.7506537"
        y="4.7506533"
-       inkscape:label="placement-00" />
+       inkscape:label="position_1" />
     <rect
        style="fill:#c6c4ed;fill-opacity:1;stroke:#000000;stroke-width:1.03464;stroke-miterlimit:4;stroke-dasharray:none"
-       id="placement-01"
+       id="position_2"
        width="32.832027"
        height="32.832027"
        x="42.850655"
        y="4.7506533"
-       inkscape:label="placement-01" />
+       inkscape:label="position_2" />
     <rect
        style="fill:#c6c4ed;fill-opacity:1;stroke:#000000;stroke-width:1.03464;stroke-miterlimit:4;stroke-dasharray:none"
-       id="placement-02"
+       id="position_3"
        width="32.832027"
        height="32.832027"
        x="80.950653"
        y="4.7506533"
-       inkscape:label="placement-02" />
+       inkscape:label="position_3" />
     <rect
        style="fill:#c6c4ed;fill-opacity:1;stroke:#000000;stroke-width:1.03464;stroke-miterlimit:4;stroke-dasharray:none"
-       id="placement-03"
+       id="position_4"
        width="32.832027"
        height="32.832027"
        x="119.05065"
        y="4.7506533"
-       inkscape:label="placement-03" />
+       inkscape:label="position_4" />
     <text
        xml:space="preserve"
        id="user-0-label"

@@ -212,9 +212,10 @@ class GameViewXML(arcade.View):
                 destination_name = destination.id
                 logger.debug(f"Move {item_name} to {destination_name}")
 
-                data = {"command": "move_piece",
-                        "name": item_name,
-                        "destination": destination_name}
+                data = {'command': 'move',
+                        'piece': item_name,
+                        'to_position': destination_name
+                        }
 
                 self.window.communications_channel.send_queue.put(data)
         else:
