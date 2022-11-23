@@ -1,4 +1,5 @@
 import arcade
+import arcade.gui.widgets.buttons
 import logging
 
 from .layout_xml import process_svg
@@ -26,6 +27,9 @@ class GameViewXML(arcade.View):
         logger.debug("GameViewXML.__init__")
         arcade.set_background_color(arcade.color.PAPAYA_WHIP)
 
+        self.gui_manager = arcade.gui.UIManager()
+        self.gui_manager.enable()
+
         # Pieces
         self.piece_list = arcade.SpriteList()
         self.actions_list = arcade.SpriteList()
@@ -40,6 +44,16 @@ class GameViewXML(arcade.View):
         self.svg = process_svg("networked_game/gui/layout.svg")
 
         self.process_game_data(self.window.game_data)
+
+        finish_quests_button = arcade.gui.UIFlatButton(text="Finish Quests", width=200, x=10, y=300)
+
+        @finish_quests_button.event("on_click")
+        def on_click_settings(event):
+            data = {'command': 'finish_quest'}
+
+            self.window.communications_channel.send_queue.put(data)
+
+        self.gui_manager.add(finish_quests_button)
 
     def on_update(self, delta_time):
 
@@ -164,6 +178,7 @@ class GameViewXML(arcade.View):
         self.draw_layout()
         self.piece_list.draw()
         self.actions_list.draw()
+        self.gui_manager.draw()
 
     def on_resize(self, width: int, height: int):
         super().on_resize(width, height)

@@ -44,7 +44,8 @@ class Server:
                 # Grab the command out of the list and process
                 command = data["command"]
                 logger.debug(f"Server received command: {command}")
-                self.game.process_data(data, user_connection)
+                result = self.game.process_data(data, user_connection)
+                logger.debug(f"Server processed command with a result of: {result}")
 
                 # The only command this thread cares about, disconnect
                 if command == "logout":
