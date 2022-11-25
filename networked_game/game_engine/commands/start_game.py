@@ -27,5 +27,7 @@ class StartGame(Command):
         # Create the game board
         generate_game_board(game_data)
         start_round(game_data)
+        import json
+        print(json.dumps(game_data, indent=4))
 
         return {'messages': ['start_game_success']}

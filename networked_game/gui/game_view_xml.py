@@ -25,6 +25,11 @@ class GameViewXML(arcade.View):
         # Call the parent class initializer
         super().__init__()
         logger.debug("GameViewXML.__init__")
+
+        self.origin_x = 0
+        self.origin_y = 0
+        self.ratio = 0
+
         arcade.set_background_color(arcade.color.PAPAYA_WHIP)
 
         self.gui_manager = arcade.gui.UIManager()
@@ -45,7 +50,7 @@ class GameViewXML(arcade.View):
 
         self.process_game_data(self.window.game_data)
 
-        finish_quests_button = arcade.gui.UIFlatButton(text="Finish Quests", width=200, x=10, y=300)
+        finish_quests_button = arcade.gui.UIFlatButton(text="Finish Quests", width=200, x=10, y=50)
 
         @finish_quests_button.event("on_click")
         def on_click_settings(event):
@@ -70,69 +75,108 @@ class GameViewXML(arcade.View):
             self.window.game_data = data
             self.process_game_data(data)
 
+    def _process_quest_draw(self, board, sprite_list):
+        quest_draw_pile = board['quest_draw_pile']
+        for index, card_name in enumerate(quest_draw_pile):
+            location_name = f"quest_draw_pile_{index}"
+            rect = get_rect_for_name(self.svg, location_name)
+            if not rect:
+                logger.error(f"Can't find rect for {location_name}")
+                continue
+
+            image_name = f"networked_game/images/quest_cards/{card_name}.png"
+
+            cx, cy, width, height = get_rect_info(rect, self.origin_x, self.origin_y, self.ratio)
+
+            # Create sprite
+            logger.debug(f"Drawing with image {image_name}")
+            sprite = arcade.Sprite(image_name)
+            sprite.properties['name'] = card_name
+            sprite.position = cx, cy
+            sprite.height = height
+            sprite.width = width
+            sprite_list.append(sprite)
+            logger.debug(f"Placed {card_name} located at {location_name} at ({cx}, {cy})")
+
+    def _process_player_uncompleted_quests(self, board, sprite_list):
+        for player_name in board['players']:
+            uncompleted_quests = board['players'][player_name]['uncompleted_quest_cards']
+            for index, card_name in enumerate(uncompleted_quests):
+                location_name = f"{player_name}_quest_{index}"
+                rect = get_rect_for_name(self.svg, location_name)
+                if not rect:
+                    logger.error(f"Can't find rect for {location_name}")
+                    continue
+
+                image_name = f"networked_game/images/quest_cards/{card_name}.png"
+
+                cx, cy, width, height = get_rect_info(rect, self.origin_x, self.origin_y, self.ratio)
+
+                # Create sprite
+                logger.debug(f"Drawing with image {image_name}")
+                sprite = arcade.Sprite(image_name)
+                sprite.properties['name'] = card_name
+                sprite.position = cx, cy
+                sprite.height = height
+                sprite.width = width
+                sprite_list.append(sprite)
+                logger.debug(f"Placed {card_name} located at {location_name} at ({cx}, {cy})")
+
+    def _process_pieces(self, board, sprite_list):
+        """ Create sprites and put them in the correct location"""
+        pieces = board['pieces']
+
+        # Loop through each item in the list we are given
+        for piece_name in pieces:
+
+            # Get piece location
+            location_name = get_piece_position(piece_name, board)
+
+            logger.debug(f"Placing {piece_name}, {location_name}")
+
+            # Get the rect for this location from the SVG
+            rect = get_rect_for_name(self.svg, location_name)
+            if not rect:
+                logger.warning(f"Can't find location named {location_name} to place {piece_name}.")
+                continue
+
+            # Get rect, adjusted for our screen dimensions
+            cx, cy, width, height = get_rect_info(rect, self.origin_x, self.origin_y, self.ratio)
+
+            # Figure out what image to use for this sprite
+            image_name = lookup_image(piece_name)
+
+            if not image_name:
+                logger.warning(f"Can't find image for {location_name}, so can't create sprite.")
+                continue
+
+            # Create sprite
+            logger.debug(f"Drawing with image {image_name}")
+            sprite = arcade.Sprite(image_name, self.ratio)
+            sprite.properties['name'] = piece_name
+            sprite.position = cx, cy
+            sprite_list.append(sprite)
+            logger.debug(f"Placed {piece_name} located at {location_name} at ({cx}, {cy})")
+
     def process_game_data(self, data):
 
         # Create new sprite lists
         self.piece_list = arcade.SpriteList()
         self.actions_list = arcade.SpriteList()
 
-        origin_x, origin_y, ratio = calculate_screen_data(self.svg.width, self.svg.height,
-                                                          self.window.width, self.window.height)
+        self.origin_x, self.origin_y, self.ratio = calculate_screen_data(self.svg.width, self.svg.height,
+                                                                         self.window.width, self.window.height)
         logger.debug(f"{self.svg.width=}, {self.svg.height=}, {self.window.width=}, {self.window.height=}")
-        logger.debug(f"{origin_x=}, {origin_y=}, {ratio=}")
-
-        locations = {}
-
-        def process_items(board, sprite_list):
-            """ Create sprites and put them in the correct location"""
-            pieces = board['pieces']
-
-            # Loop through each item in the list we are given
-            for piece_name in pieces:
-
-                # Get piece location
-                location_name = get_piece_position(piece_name, board)
-
-                logger.debug(f"Placing {piece_name}, {location_name}")
-
-                # Get the rect for this location from the SVG
-                rect = get_rect_for_name(self.svg, location_name)
-                if not rect:
-                    logger.warning(f"Can't find location named {location_name} to place {piece_name}.")
-                    continue
-
-                # Get rect, adjusted for our screen dimensions
-                cx, cy, width, height = get_rect_info(rect, origin_x, origin_y, ratio)
-
-                # Figure out what image to use for this sprite
-                image_name = lookup_image(piece_name)
-
-                if not image_name:
-                    logger.warning(f"Can't find image for {location_name}, so can't create sprite.")
-                    continue
-
-                # Create sprite
-                logger.debug(f"Drawing with image {image_name}")
-                sprite = arcade.Sprite(image_name, ratio)
-                sprite.properties['name'] = piece_name
-                sprite.position = cx, cy
-                sprite_list.append(sprite)
-                logger.debug(f"Placed {piece_name} located at {location_name} at ({cx}, {cy})")
-
-                # # What if there is another sprite at the same location? This will offset it
-                # if piece['location'] in locations:
-                #     for other_sprite in locations[location_name]:
-                #         other_sprite.center_x += 15
-                #     locations[piece['location']].append(sprite)
-                # else:
-                #     locations[piece['location']] = [sprite]
+        logger.debug(f"{self.origin_x=}, {self.origin_y=}, {self.ratio=}")
 
         # logger.debug(f"- Placements")
         # placement_list = data["placements"]
         # process_items(placement_list, self.piece_list)
         logger.debug(f"- Pieces")
         board = data["board"]
-        process_items(board, self.piece_list)
+        self._process_pieces(board, self.piece_list)
+        self._process_quest_draw(board, self.piece_list)
+        self._process_player_uncompleted_quests(board, self.piece_list)
         # logger.debug(f"- Actions")
         # pieces_list = data["action_items"]
         # process_items(pieces_list, self.actions_list)
@@ -187,7 +231,7 @@ class GameViewXML(arcade.View):
     def on_mouse_press(self, x, y, button, key_modifiers):
         """ Called when the user presses a mouse button. """
 
-        # Get list of cards we've clicked on
+        # Get list of sprites we've clicked on
         pieces = arcade.get_sprites_at_point((x, y), self.piece_list)
 
         # Have we clicked on a card?

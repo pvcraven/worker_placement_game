@@ -40,50 +40,115 @@
     <rect
        style="fill:#c6c4ed;fill-opacity:0.996255;stroke:#000000;stroke-width:1.03464;stroke-miterlimit:4;stroke-dasharray:none"
        id="player_1_hold"
-       width="32.832027"
-       height="32.832027"
-       x="4.7506537"
-       y="54.7506533"
+       width="32"
+       height="32"
+       x="4"
+       y="40"
        inkscape:label="player_1_hold" />
     <rect
        style="fill:#c6c4ed;fill-opacity:0.996255;stroke:#000000;stroke-width:1.03464;stroke-miterlimit:4;stroke-dasharray:none"
        id="position_1"
-       width="32.832027"
-       height="32.832027"
-       x="4.7506537"
-       y="4.7506533"
+       width="32"
+       height="32"
+       x="4"
+       y="4"
        inkscape:label="position_1" />
     <rect
        style="fill:#c6c4ed;fill-opacity:1;stroke:#000000;stroke-width:1.03464;stroke-miterlimit:4;stroke-dasharray:none"
        id="position_2"
-       width="32.832027"
-       height="32.832027"
-       x="42.850655"
-       y="4.7506533"
+       width="32"
+       height="32"
+       x="38"
+       y="4"
        inkscape:label="position_2" />
     <rect
        style="fill:#c6c4ed;fill-opacity:1;stroke:#000000;stroke-width:1.03464;stroke-miterlimit:4;stroke-dasharray:none"
        id="position_3"
-       width="32.832027"
-       height="32.832027"
-       x="80.950653"
-       y="4.7506533"
+       width="32"
+       height="32"
+       x="72"
+       y="4"
        inkscape:label="position_3" />
     <rect
        style="fill:#c6c4ed;fill-opacity:1;stroke:#000000;stroke-width:1.03464;stroke-miterlimit:4;stroke-dasharray:none"
        id="position_4"
-       width="32.832027"
-       height="32.832027"
-       x="119.05065"
-       y="4.7506533"
+       width="32"
+       height="32"
+       x="106"
+       y="4"
        inkscape:label="position_4" />
+    <rect
+       style="fill:#c6c4ed;fill-opacity:1;stroke:#000000;stroke-width:1.03464;stroke-miterlimit:4;stroke-dasharray:none"
+       id="position_5"
+       width="32"
+       height="32"
+       x="140"
+       y="4"
+       inkscape:label="position_5" />
+    <rect
+       style="fill:#c6c4ed;fill-opacity:1;stroke:#000000;stroke-width:1.03464;stroke-miterlimit:4;stroke-dasharray:none"
+       id="position_6"
+       width="32"
+       height="32"
+       x="174"
+       y="4"
+       inkscape:label="position_6" />
+    <rect
+       style="fill:#c6c4ed;fill-opacity:1;stroke:#000000;stroke-width:1.03464;stroke-miterlimit:4;stroke-dasharray:none"
+       id="quest_draw_pile_0"
+       width="32"
+       height="40"
+       x="4"
+       y="74"
+       inkscape:label="quest_draw_pile_0" />
+    <rect
+       style="fill:#c6c4ed;fill-opacity:1;stroke:#000000;stroke-width:1.03464;stroke-miterlimit:4;stroke-dasharray:none"
+       id="quest_draw_pile_1"
+       width="32"
+       height="40"
+       x="38"
+       y="74"
+       inkscape:label="quest_draw_pile_1" />
+    <rect
+       style="fill:#c6c4ed;fill-opacity:1;stroke:#000000;stroke-width:1.03464;stroke-miterlimit:4;stroke-dasharray:none"
+       id="quest_draw_pile_2"
+       width="32"
+       height="40"
+       x="72"
+       y="74"
+       inkscape:label="quest_draw_pile_2" />
+    <rect
+       style="fill:#c6c4ed;fill-opacity:1;stroke:#000000;stroke-width:1.03464;stroke-miterlimit:4;stroke-dasharray:none"
+       id="player_1_quest_0"
+       width="32"
+       height="40"
+       x="4"
+       y="116"
+       inkscape:label="player_1_quest_0" />
+    <rect
+       style="fill:#c6c4ed;fill-opacity:1;stroke:#000000;stroke-width:1.03464;stroke-miterlimit:4;stroke-dasharray:none"
+       id="player_1_quest_1"
+       width="32"
+       height="40"
+       x="38"
+       y="116"
+       inkscape:label="player_1_quest_1" />
+    <rect
+       style="fill:#c6c4ed;fill-opacity:1;stroke:#000000;stroke-width:1.03464;stroke-miterlimit:4;stroke-dasharray:none"
+       id="player_1_quest_2"
+       width="32"
+       height="40"
+       x="72"
+       y="116"
+       inkscape:label="player_1_quest_2" />
+
     <text
        xml:space="preserve"
        id="user-0-label"
        style="font-size:16px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;white-space:pre;shape-inside:url(#rect1859)"
-       transform="translate(0.57635581,235.89957)"><tspan
+       transform="translate(0,0)"><tspan
          x="0"
-         y="0"
+         y="220"
          id="tspan1009">#users-0-name#</tspan></text>
   </g>
 </svg>
