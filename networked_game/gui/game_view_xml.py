@@ -1,6 +1,8 @@
+import logging
+from typing import Optional
+
 import arcade
 import arcade.gui.widgets.buttons
-import logging
 
 from .layout_xml import process_svg
 from .layout_xml import get_rect_info
@@ -16,6 +18,8 @@ from networked_game.game_engine.piece_util_functions import get_piece_position
 
 logger = logging.getLogger(__name__)
 
+MESSAGE_TIME = 1.5
+
 
 class GameViewXML(arcade.View):
     """ Our custom Window Class"""
@@ -26,9 +30,12 @@ class GameViewXML(arcade.View):
         super().__init__()
         logger.debug("GameViewXML.__init__")
 
-        self.origin_x = 0
-        self.origin_y = 0
-        self.ratio = 0
+        self.origin_x: int = 0
+        self.origin_y: int = 0
+        self.ratio: float = 0
+
+        self.messages: list = []
+        self.message_timer: float = 0
 
         arcade.set_background_color(arcade.color.PAPAYA_WHIP)
 
@@ -53,7 +60,7 @@ class GameViewXML(arcade.View):
         finish_quests_button = arcade.gui.UIFlatButton(text="Finish Quests", width=200, x=10, y=50)
 
         @finish_quests_button.event("on_click")
-        def on_click_settings(event):
+        def on_click_settings(_event):
             data = {'command': 'finish_quest'}
 
             self.window.communications_channel.send_queue.put(data)
@@ -72,8 +79,26 @@ class GameViewXML(arcade.View):
         # Any messages to process?
         if not self.window.communications_channel.receive_queue.empty():
             data = self.window.communications_channel.receive_queue.get()
-            self.window.game_data = data
-            self.process_game_data(data)
+            logger.debug("Received: {data}")
+
+            if "board" in data:
+                logger.debug("Calling process_game_data")
+                self.window.game_data = data
+                self.process_game_data(data)
+            if "messages" in data:
+                logger.debug("Updating messages")
+                self.messages.extend(data['messages'])
+
+        # Message list
+        if len(self.messages) > 0:
+            if not self.message_timer:
+                self.message_timer = delta_time
+
+            else:
+                self.message_timer += delta_time
+                if self.message_timer >= MESSAGE_TIME:
+                    self.messages.pop(0)
+                    self.message_timer = 0
 
     def _process_quest_draw(self, board, sprite_list):
         quest_draw_pile = board['quest_draw_pile']
@@ -160,6 +185,8 @@ class GameViewXML(arcade.View):
 
     def process_game_data(self, data):
 
+        logger.debug(f"Processing {data}")
+
         # Create new sprite lists
         self.piece_list = arcade.SpriteList()
         self.actions_list = arcade.SpriteList()
@@ -172,11 +199,13 @@ class GameViewXML(arcade.View):
         # logger.debug(f"- Placements")
         # placement_list = data["placements"]
         # process_items(placement_list, self.piece_list)
-        logger.debug(f"- Pieces")
-        board = data["board"]
-        self._process_pieces(board, self.piece_list)
-        self._process_quest_draw(board, self.piece_list)
-        self._process_player_uncompleted_quests(board, self.piece_list)
+        if "board" in data:
+            board = data["board"]
+            self._process_pieces(board, self.piece_list)
+            self._process_quest_draw(board, self.piece_list)
+            self._process_player_uncompleted_quests(board, self.piece_list)
+        if "messages" in data:
+            self.messages.extend(data['messages'])
         # logger.debug(f"- Actions")
         # pieces_list = data["action_items"]
         # process_items(pieces_list, self.actions_list)
@@ -217,12 +246,17 @@ class GameViewXML(arcade.View):
                 text_size_float = float(text_size_string) * 2.5 * ratio
                 arcade.draw_text(text, x, y, arcade.color.BLACK, text_size_float)
 
+    def draw_messages(self):
+        if len(self.messages) > 0:
+            arcade.draw_text(self.messages[0], 10, 10, arcade.color.BLACK, 24)
+
     def on_draw(self):
         arcade.start_render()
         self.draw_layout()
         self.piece_list.draw()
         self.actions_list.draw()
         self.gui_manager.draw()
+        self.draw_messages()
 
     def on_resize(self, width: int, height: int):
         super().on_resize(width, height)

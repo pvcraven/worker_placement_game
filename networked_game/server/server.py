@@ -47,6 +47,9 @@ class Server:
                 result = self.game.process_data(data, user_connection)
                 logger.debug(f"Server processed command with a result of: {result}")
 
+                # Sent the result back
+                user_connection.channel.send_queue.put(result)
+
                 # The only command this thread cares about, disconnect
                 if command == "logout":
                     logging.debug(f"Logout from {user_connection.user_name}")

@@ -51,8 +51,8 @@ class WaitingForPlayersView(arcade.View):
         # Any messages to process?
         if not self.window.communications_channel.receive_queue.empty():
             data = self.window.communications_channel.receive_queue.get()
-            self.window.game_data = data
-            if data["state"] == "running":
+            if "state" in data and data["state"] == "running":
+                self.window.game_data = data
                 logger.debug("Message received, switching to game view.")
                 view = GameViewXML()
                 self.window.show_view(view)
