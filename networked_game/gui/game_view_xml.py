@@ -1,5 +1,4 @@
 import logging
-from typing import Optional
 
 import arcade
 import arcade.gui.widgets.buttons
@@ -266,18 +265,25 @@ class GameViewXML(arcade.View):
         """ Called when the user presses a mouse button. """
 
         # Get list of sprites we've clicked on
-        pieces = arcade.get_sprites_at_point((x, y), self.piece_list)
+        sprites = arcade.get_sprites_at_point((x, y), self.piece_list)
 
-        # Have we clicked on a card?
-        if len(pieces) > 0:
+        # Have we clicked on a sprites?
+        if len(sprites) > 0:
 
             # Might be a stack, get the top one
-            primary = pieces[-1]
-
-            # All other cases, grab the face-up card we are clicking on
-            self.held_items = [primary]
-            # Save the position
-            self.held_items_original_position = [self.held_items[0].position]
+            primary = sprites[-1]
+            name = primary.properties['name']
+            if name.startswith("quest_"):
+                logger.debug(f"Clicked on quest {name}")
+                data = {'command': 'finish_quest',
+                        'quest_name': name,
+                        }
+                self.window.communications_channel.send_queue.put(data)
+            else:
+                # All other cases, grab the face-up card we are clicking on
+                self.held_items = [primary]
+                # Save the position
+                self.held_items_original_position = [self.held_items[0].position]
 
     def on_mouse_motion(self, x: float, y: float, dx: float, dy: float):
         """ User moves mouse """
