@@ -3,4 +3,5 @@ venv/
 .idea/
 __pycache__/
 networked_game/images/quest_cards/
+networked_game/images/piece_positions/
 example.json

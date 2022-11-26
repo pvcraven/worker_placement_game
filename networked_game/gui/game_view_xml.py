@@ -1,4 +1,5 @@
 import logging
+from os.path import exists
 
 import arcade
 import arcade.gui.widgets.buttons
@@ -146,6 +147,31 @@ class GameViewXML(arcade.View):
                 sprite_list.append(sprite)
                 logger.debug(f"Placed {card_name} located at {location_name} at ({cx}, {cy})")
 
+    def _process_piece_positions(self, board, sprite_list):
+        piece_positions = board['piece_positions']
+        for index, piece_position_name in enumerate(piece_positions):
+
+            rect = get_rect_for_name(self.svg, piece_position_name)
+            if not rect:
+                logger.error(f"Can't find rect for {piece_position_name}")
+                continue
+
+            image_name = f"networked_game/images/piece_positions/{piece_position_name}.png"
+            file_exists = exists(image_name)
+
+            if file_exists:
+                cx, cy, width, height = get_rect_info(rect, self.origin_x, self.origin_y, self.ratio)
+
+                # Create sprite
+                logger.debug(f"Drawing with image {image_name}")
+                sprite = arcade.Sprite(image_name)
+                sprite.properties['name'] = piece_position_name
+                sprite.position = cx, cy
+                sprite.height = height
+                sprite.width = width
+                sprite_list.append(sprite)
+                logger.debug(f"Placed card located at {piece_position_name} at ({cx}, {cy})")
+
     def _process_pieces(self, board, sprite_list):
         """ Create sprites and put them in the correct location"""
         pieces = board['pieces']
@@ -200,9 +226,10 @@ class GameViewXML(arcade.View):
         # process_items(placement_list, self.piece_list)
         if "board" in data:
             board = data["board"]
-            self._process_pieces(board, self.piece_list)
             self._process_quest_draw(board, self.piece_list)
+            self._process_piece_positions(board, self.piece_list)
             self._process_player_uncompleted_quests(board, self.piece_list)
+            self._process_pieces(board, self.piece_list)
         if "messages" in data:
             self.messages.extend(data['messages'])
         # logger.debug(f"- Actions")

@@ -52,6 +52,8 @@ def draw_resources(draw, start_x, start_y, resources):
                 elif resource_type == 'coins':
                     color = arcade.color.BRONZE
                     shape = CIRCLE
+                else:
+                    raise Exception("Unknown resource type")
 
                 if shape == RECTANGLE:
                     draw.rectangle(xy=bb, fill=color)
@@ -72,7 +74,11 @@ def main():
 
         with Image.open("Poker_BB_Black.png") as im:
             print(f"Generating: {quest_name}")
-            draw = ImageDraw.Draw(im)
+
+            new_image = Image.new("RGBA", im.size, color=(228, 218, 191))
+            new_image.paste(im, (0, 0), im)
+
+            draw = ImageDraw.Draw(new_image)
 
             # Draw title
             draw.text(TITLE_LOCATION, quest['title'], font=fnt, fill=arcade.color.BLACK)
@@ -93,7 +99,7 @@ def main():
             y = REWARDS_LOCATION[1]
             draw_resources(draw, x, y, resources)
 
-            im.save(f"../networked_game/images/quest_cards/{quest_name}.png")
+            new_image.save(f"../networked_game/images/quest_cards/{quest_name}.png")
 
 
 main()

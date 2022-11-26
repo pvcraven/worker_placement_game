@@ -6,7 +6,6 @@ from networked_game.gui.constants import *
 from networked_game.gui.waiting_for_players_view import WaitingForPlayersView
 from networked_game.server.server import Server
 from networked_game.network.communications_channel import CommunicationsChannel
-from networked_game.gui.connect_view import ConnectView
 
 # logging.basicConfig(level=logging.DEBUG)
 logger = logging.getLogger(__name__)

@@ -2,6 +2,7 @@ import random
 import logging
 
 from networked_game.game_engine.quest_cards import quest_cards
+from networked_game.game_engine.piece_positions import piece_positions
 
 logger = logging.getLogger(__name__)
 
@@ -49,28 +50,6 @@ def generate_game_board(game_data):
         }
         players[player_name] = player_info
 
-    # Generate piece positions
-    piece_positions = {
-      'position_1': {'max_pieces': 1, 'pieces': [], 'actions': {
-          'get_resources': {'black': 2}
-      }},
-      'position_2': {'max_pieces': 1, 'pieces': [], 'actions': {
-          'get_resources': {'orange': 2}
-      }},
-      'position_3': {'max_pieces': 1, 'pieces': [], 'actions': {
-          'get_resources': {'purple': 1}
-      }},
-      'position_4': {'max_pieces': 1, 'pieces': [], 'actions': {
-          'get_resources': {'white': 1}
-      }},
-      'position_5': {'max_pieces': 1, 'pieces': [], 'actions': {
-          'get_resources': {'coins': 4}
-      }},
-      'position_6': {'max_pieces': 1, 'pieces': [], 'actions': {
-          'pick_quest_card': 'quest_draw_pile'
-      }},
-
-    }
     for player_no in range(1, player_count + 1):
         position = {
           f'player_{player_no}_hold': {'max_pieces': 0, 'pieces': []}
