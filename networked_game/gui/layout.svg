@@ -2,9 +2,9 @@
 <!-- Created with Inkscape (http://www.inkscape.org/) -->
 
 <svg
-   width="1600"
-   height="900"
-   viewBox="0 0 423.33333 238.12501"
+   width="1920"
+   height="1080"
+   viewBox="0 0 1920 1080"
    version="1.1"
    id="svg8"
    inkscape:version="1.1.1 (3bf5ae0d25, 2021-09-20)"
@@ -40,115 +40,195 @@
     <rect
        style="fill:#c6c4ed;fill-opacity:0.996255;stroke:#000000;stroke-width:1.03464;stroke-miterlimit:4;stroke-dasharray:none"
        id="player_1_hold"
-       width="32"
-       height="32"
+       width="64"
+       height="64"
        x="4"
-       y="40"
+       y="1010"
        inkscape:label="player_1_hold" />
     <rect
        style="fill:#c6c4ed;fill-opacity:0.996255;stroke:#000000;stroke-width:1.03464;stroke-miterlimit:4;stroke-dasharray:none"
        id="position_1"
-       width="32"
-       height="32"
+       width="240"
+       height="330"
        x="4"
        y="4"
        inkscape:label="position_1" />
     <rect
        style="fill:#c6c4ed;fill-opacity:1;stroke:#000000;stroke-width:1.03464;stroke-miterlimit:4;stroke-dasharray:none"
        id="position_2"
-       width="32"
-       height="32"
-       x="38"
+       width="240"
+       height="330"
+       x="248"
        y="4"
        inkscape:label="position_2" />
     <rect
        style="fill:#c6c4ed;fill-opacity:1;stroke:#000000;stroke-width:1.03464;stroke-miterlimit:4;stroke-dasharray:none"
        id="position_3"
-       width="32"
-       height="32"
-       x="72"
+       width="240"
+       height="330"
+       x="492"
        y="4"
        inkscape:label="position_3" />
     <rect
        style="fill:#c6c4ed;fill-opacity:1;stroke:#000000;stroke-width:1.03464;stroke-miterlimit:4;stroke-dasharray:none"
        id="position_4"
-       width="32"
-       height="32"
-       x="106"
+       width="240"
+       height="330"
+       x="736"
        y="4"
        inkscape:label="position_4" />
     <rect
        style="fill:#c6c4ed;fill-opacity:1;stroke:#000000;stroke-width:1.03464;stroke-miterlimit:4;stroke-dasharray:none"
        id="position_5"
-       width="32"
-       height="32"
-       x="140"
+       width="240"
+       height="330"
+       x="980"
        y="4"
        inkscape:label="position_5" />
     <rect
        style="fill:#c6c4ed;fill-opacity:1;stroke:#000000;stroke-width:1.03464;stroke-miterlimit:4;stroke-dasharray:none"
        id="position_6"
-       width="32"
-       height="32"
-       x="174"
+       width="240"
+       height="330"
+       x="1225"
        y="4"
        inkscape:label="position_6" />
     <rect
        style="fill:#c6c4ed;fill-opacity:1;stroke:#000000;stroke-width:1.03464;stroke-miterlimit:4;stroke-dasharray:none"
        id="quest_draw_pile_0"
-       width="32"
-       height="40"
+       width="240"
+       height="330"
        x="4"
-       y="74"
+       y="338"
        inkscape:label="quest_draw_pile_0" />
     <rect
        style="fill:#c6c4ed;fill-opacity:1;stroke:#000000;stroke-width:1.03464;stroke-miterlimit:4;stroke-dasharray:none"
        id="quest_draw_pile_1"
-       width="32"
-       height="40"
-       x="38"
-       y="74"
+       width="240"
+       height="330"
+       x="248"
+       y="338"
        inkscape:label="quest_draw_pile_1" />
     <rect
        style="fill:#c6c4ed;fill-opacity:1;stroke:#000000;stroke-width:1.03464;stroke-miterlimit:4;stroke-dasharray:none"
        id="quest_draw_pile_2"
-       width="32"
-       height="40"
-       x="72"
-       y="74"
+       width="240"
+       height="330"
+       x="492"
+       y="338"
        inkscape:label="quest_draw_pile_2" />
     <rect
        style="fill:#c6c4ed;fill-opacity:1;stroke:#000000;stroke-width:1.03464;stroke-miterlimit:4;stroke-dasharray:none"
        id="player_1_quest_0"
-       width="32"
-       height="40"
+       width="240"
+       height="330"
        x="4"
-       y="116"
+       y="672"
        inkscape:label="player_1_quest_0" />
     <rect
        style="fill:#c6c4ed;fill-opacity:1;stroke:#000000;stroke-width:1.03464;stroke-miterlimit:4;stroke-dasharray:none"
        id="player_1_quest_1"
-       width="32"
-       height="40"
-       x="38"
-       y="116"
+       width="240"
+       height="330"
+       x="248"
+       y="672"
        inkscape:label="player_1_quest_1" />
     <rect
        style="fill:#c6c4ed;fill-opacity:1;stroke:#000000;stroke-width:1.03464;stroke-miterlimit:4;stroke-dasharray:none"
        id="player_1_quest_2"
-       width="32"
-       height="40"
-       x="72"
-       y="116"
+       width="240"
+       height="330"
+       x="492"
+       y="672"
        inkscape:label="player_1_quest_2" />
 
     <text
        xml:space="preserve"
        id="user-0-label"
-       style="font-size:16px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;white-space:pre;shape-inside:url(#rect1859)"
+       style="font-size:24px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;white-space:pre;shape-inside:url(#rect1859)"
        transform="translate(0,0)"><tspan
-         x="0"
-         y="220"
-         id="tspan1009">#users-0-name#</tspan></text>
+         x="1700"
+         y="30"
+         id="tspan1009">#player-1-name#</tspan></text>
+    <text
+       xml:space="preserve"
+       id="user-0-label"
+       style="font-size:24px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;white-space:pre;shape-inside:url(#rect1859)"
+       transform="translate(0,0)"><tspan
+         x="1600"
+         y="60"
+         id="tspan1009">Black</tspan></text>
+    <text
+       xml:space="preserve"
+       id="user-0-label"
+       style="font-size:24px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;white-space:pre;shape-inside:url(#rect1859)"
+       transform="translate(0,0)"><tspan
+         x="1700"
+         y="60"
+         id="tspan1009">#player-1-black#</tspan></text>
+    <text
+       xml:space="preserve"
+       id="user-0-label"
+       style="font-size:24px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;white-space:pre;shape-inside:url(#rect1859)"
+       transform="translate(0,0)"><tspan
+         x="1600"
+         y="90"
+         id="tspan1009">Orange</tspan></text>
+    <text
+       xml:space="preserve"
+       id="user-0-label"
+       style="font-size:24px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;white-space:pre;shape-inside:url(#rect1859)"
+       transform="translate(0,0)"><tspan
+         x="1700"
+         y="90"
+         id="tspan1009">#player-1-orange#</tspan></text>
+    <text
+       xml:space="preserve"
+       id="user-0-label"
+       style="font-size:24px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;white-space:pre;shape-inside:url(#rect1859)"
+       transform="translate(0,0)"><tspan
+         x="1600"
+         y="120"
+         id="tspan1009">White</tspan></text>
+    <text
+       xml:space="preserve"
+       id="user-0-label"
+       style="font-size:24px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;white-space:pre;shape-inside:url(#rect1859)"
+       transform="translate(0,0)"><tspan
+         x="1700"
+         y="120"
+         id="tspan1009">#player-1-white#</tspan></text>
+    <text
+       xml:space="preserve"
+       id="user-0-label"
+       style="font-size:24px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;white-space:pre;shape-inside:url(#rect1859)"
+       transform="translate(0,0)"><tspan
+         x="1600"
+         y="150"
+         id="tspan1009">Purple</tspan></text>
+    <text
+       xml:space="preserve"
+       id="user-0-label"
+       style="font-size:24px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;white-space:pre;shape-inside:url(#rect1859)"
+       transform="translate(0,0)"><tspan
+         x="1700"
+         y="150"
+         id="tspan1009">#player-1-purple#</tspan></text>
+    <text
+       xml:space="preserve"
+       id="user-0-label"
+       style="font-size:24px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;white-space:pre;shape-inside:url(#rect1859)"
+       transform="translate(0,0)"><tspan
+         x="1600"
+         y="180"
+         id="tspan1009">Coins</tspan></text>
+    <text
+       xml:space="preserve"
+       id="user-0-label"
+       style="font-size:24px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;white-space:pre;shape-inside:url(#rect1859)"
+       transform="translate(0,0)"><tspan
+         x="1700"
+         y="180"
+         id="tspan1009">#player-1-coins#</tspan></text>
   </g>
 </svg>

@@ -10,8 +10,8 @@ logger = logging.getLogger(__name__)
 logger.setLevel(logging.DEBUG)
 
 
-def convert_mm_to_px(mm: float):
-    return mm * MM_TO_PX
+# def convert_mm_to_px(mm: float):
+#     return mm * MM_TO_PX
 
 
 @dataclass
@@ -66,6 +66,7 @@ def get_shape_at(svg, origin_x, origin_y, scale, target_x, target_y):
 
     return None
 
+
 def get_rect_for_name(svg, name: str):
     for shape in svg.shapes:
         # logger.debug(f"{shape.id=} =? {name=}")
@@ -98,17 +99,17 @@ def process_item(item: ElementTree.Element, shapes: List, image_height: float):
         # Grab id
         item_id = item.attrib['id']
         # Dimensions
-        width = convert_mm_to_px(float(item.attrib['width']))
-        height = convert_mm_to_px(float(item.attrib['height']))
+        width = float(item.attrib['width'])
+        height = float(item.attrib['height'])
         # Coordinates
-        x = convert_mm_to_px(float(item.attrib['x']))
+        x = float(item.attrib['x'])
         # Reverse y
-        y = image_height - convert_mm_to_px(float(item.attrib['y']))
+        y = image_height - float(item.attrib['y'])
         # Style info
         style_dict = get_style_dict(item.attrib['style'])
 
         if "stroke-width" in style_dict:
-            style_dict["stroke-width"] = convert_mm_to_px(float(style_dict["stroke-width"]))
+            style_dict["stroke-width"] = float(style_dict["stroke-width"])
 
         # Create object and append to list
         rect = Rect(item_id, x, y, width, height, style_dict)
@@ -120,9 +121,9 @@ def process_item(item: ElementTree.Element, shapes: List, image_height: float):
         item_id = item.attrib['id']
         tspan = item.find("{http://www.w3.org/2000/svg}tspan")
         # Coordinates
-        x = convert_mm_to_px(float(tspan.attrib['x']))
+        x = float(tspan.attrib['x'])
         # Reverse y
-        y = image_height - convert_mm_to_px(float(tspan.attrib['y']))
+        y = image_height - float(tspan.attrib['y'])
         # Style info
         style_dict = get_style_dict(item.attrib['style'])
 
@@ -147,10 +148,3 @@ def process_svg(filename):
 
     svg = SVG(shapes, image_width, image_height)
     return svg
-
-
-# def main():
-#     process_svg('gui/layout.svg')
-#
-#
-# main()

@@ -57,7 +57,7 @@ class GameViewXML(arcade.View):
 
         self.process_game_data(self.window.game_data)
 
-        finish_quests_button = arcade.gui.UIFlatButton(text="Finish Quests", width=200, x=10, y=50)
+        finish_quests_button = arcade.gui.UIFlatButton(text="Finish Quests", width=200, x=1000, y=50)
 
         @finish_quests_button.event("on_click")
         def on_click_settings(_event):
@@ -269,8 +269,8 @@ class GameViewXML(arcade.View):
                 text = text_replacement(shape.text, self.window.game_data)
                 text_size_string = shape.style["font-size"]
                 text_size_string = text_size_string[:-2]
-                text_size_float = float(text_size_string) * 2.5 * ratio
-                arcade.draw_text(text, x, y, arcade.color.BLACK, text_size_float)
+                text_size_float = float(text_size_string) * 1 * ratio
+                arcade.draw_text(text, x, y, arcade.color.BLACK, text_size_float, multiline=True, width=200)
 
     def draw_messages(self):
         if len(self.messages) > 0:
