@@ -1,11 +1,16 @@
+import os
 from PIL import Image, ImageDraw, ImageFont
 import arcade
 
 from networked_game.game_engine.quest_cards import quest_cards
 
+if os.name == "posix":
+    font = "/System/Library/Fonts/Supplemental/Tahoma.ttf"
+else:
+    font = ("c:/Windows/Fonts/cambria.ttc", 40)
 
-fnt = ImageFont.truetype("c:/Windows/Fonts/cambria.ttc", 40)
-point_fnt = ImageFont.truetype("c:/Windows/Fonts/cambria.ttc", 28)
+fnt = ImageFont.truetype(font, 40)
+point_fnt = ImageFont.truetype(font, 28)
 
 TITLE_LOCATION = 210, 125
 
@@ -72,11 +77,12 @@ def main():
     for quest_name in quest_cards:
         quest = quest_cards[quest_name]
 
-        with Image.open("Poker_BB_Black.png") as im:
+        with Image.open("purple.png") as im:
             print(f"Generating: {quest_name}")
 
-            new_image = Image.new("RGBA", im.size, color=(228, 218, 191))
-            new_image.paste(im, (0, 0), im)
+            # new_image = Image.new("RGBA", im.size)
+            # new_image.paste(im, (0, 0), im)
+            new_image = im
 
             draw = ImageDraw.Draw(new_image)
 
@@ -99,7 +105,7 @@ def main():
             y = REWARDS_LOCATION[1]
             draw_resources(draw, x, y, resources)
 
-            new_image.save(f"../networked_game/images/quest_cards/{quest_name}.png")
+            new_image.save(f"../images/quest_cards/{quest_name}.png")
 
 
 main()
