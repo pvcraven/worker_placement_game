@@ -24,6 +24,11 @@ class PickQuestCard(Command):
             logger.debug(f" {player_name=} != {player_whose_turn_it_is=}")
             return {'messages': ['not_your_turn']}
 
+        round_move = board['round_moves'][0]
+        if round_move['action'] != 'pick_quest_card':
+            logger.debug(f" Trying to pick quest when action is '{round_move['action']}'")
+            return {'messages': ['cant_pick_quest_now']}
+
         # Is the quest in the draw pile?
         if quest_name not in board['quest_draw_pile']:
             return {'messages': ['quest_not_in_draw_pile']}

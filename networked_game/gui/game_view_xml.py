@@ -202,7 +202,7 @@ class GameViewXML(arcade.View):
 
             # Create sprite
             logger.debug(f"Drawing with image {image_name}")
-            sprite = arcade.Sprite(image_name, self.ratio)
+            sprite = arcade.Sprite(image_name, 0.2)
             sprite.properties['name'] = piece_name
             sprite.position = cx, cy
             sprite_list.append(sprite)
@@ -274,7 +274,22 @@ class GameViewXML(arcade.View):
 
     def draw_messages(self):
         if len(self.messages) > 0:
-            arcade.draw_text(self.messages[0], 10, 10, arcade.color.BLACK, 24)
+            _, _, ratio = calculate_screen_data(self.svg.width, self.svg.height,
+                                                              self.window.width, self.window.height)
+
+            hh = self.window.height / 2
+            hw = self.window.width / 2
+
+            arcade.draw_rectangle_filled(hw, hh, hw, hh / 4, color=arcade.color.ALMOND)
+            arcade.draw_text(self.messages[0],
+                             0,
+                             hh,
+                             align="center",
+                             anchor_y="center",
+                             color=arcade.color.BLACK,
+                             font_size=34 * ratio,
+                             width=self.window.width
+                             )
 
     def on_draw(self):
         arcade.start_render()
@@ -302,9 +317,16 @@ class GameViewXML(arcade.View):
             name = primary.properties['name']
             if name.startswith("quest_"):
                 logger.debug(f"Clicked on quest {name}")
-                data = {'command': 'finish_quest',
-                        'quest_name': name,
-                        }
+                board = self.window.game_data['board']
+                quest_draw_pile = board['quest_draw_pile']
+                if name in quest_draw_pile:
+                    data = {'command': 'pick_quest_card',
+                            'quest_name': name,
+                            }
+                else:
+                    data = {'command': 'finish_quest',
+                            'quest_name': name,
+                            }
                 self.window.communications_channel.send_queue.put(data)
             else:
                 # All other cases, grab the face-up card we are clicking on
