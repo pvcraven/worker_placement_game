@@ -74,49 +74,77 @@
        width="240"
        height="240"
        x="4"
-       y="338" />
+       y="248" />
     <rect
        style="fill:#c6c4ed;fill-opacity:1;stroke:#000000;stroke-width:1.03464;stroke-miterlimit:4;stroke-dasharray:none"
        id="quest_draw_pile_1"
        width="240"
        height="240"
        x="248"
-       y="338" />
+       y="248" />
     <rect
        style="fill:#c6c4ed;fill-opacity:1;stroke:#000000;stroke-width:1.03464;stroke-miterlimit:4;stroke-dasharray:none"
        id="quest_draw_pile_2"
        width="240"
        height="240"
        x="492"
-       y="338" />
+       y="248" />
     <rect
        style="fill:#c6c4ed;fill-opacity:1;stroke:#000000;stroke-width:1.03464;stroke-miterlimit:4;stroke-dasharray:none"
        id="player_1_quest_0"
        width="240"
        height="240"
        x="4"
-       y="672" />
+       y="492" />
     <rect
        style="fill:#c6c4ed;fill-opacity:1;stroke:#000000;stroke-width:1.03464;stroke-miterlimit:4;stroke-dasharray:none"
        id="player_1_quest_1"
        width="240"
        height="240"
        x="248"
-       y="672" />
+       y="492" />
     <rect
        style="fill:#c6c4ed;fill-opacity:1;stroke:#000000;stroke-width:1.03464;stroke-miterlimit:4;stroke-dasharray:none"
        id="player_1_quest_2"
        width="240"
        height="240"
        x="492"
-       y="672"/>
+       y="492"/>
     <rect
        style="fill:#c6c4ed;fill-opacity:1;stroke:#000000;stroke-width:1.03464;stroke-miterlimit:4;stroke-dasharray:none"
        id="player_1_quest_3"
        width="240"
        height="240"
        x="736"
-       y="672"/>
+       y="492"/>
+    <rect
+       style="fill:#c6c4ed;fill-opacity:1;stroke:#000000;stroke-width:1.03464;stroke-miterlimit:4;stroke-dasharray:none"
+       id="player_2_quest_0"
+       width="240"
+       height="240"
+       x="4"
+       y="736" />
+    <rect
+       style="fill:#c6c4ed;fill-opacity:1;stroke:#000000;stroke-width:1.03464;stroke-miterlimit:4;stroke-dasharray:none"
+       id="player_2_quest_1"
+       width="240"
+       height="240"
+       x="248"
+       y="736" />
+    <rect
+       style="fill:#c6c4ed;fill-opacity:1;stroke:#000000;stroke-width:1.03464;stroke-miterlimit:4;stroke-dasharray:none"
+       id="player_2_quest_2"
+       width="240"
+       height="240"
+       x="492"
+       y="736"/>
+    <rect
+       style="fill:#c6c4ed;fill-opacity:1;stroke:#000000;stroke-width:1.03464;stroke-miterlimit:4;stroke-dasharray:none"
+       id="player_2_quest_3"
+       width="240"
+       height="240"
+       x="736"
+       y="736"/>
 
     <text
        xml:space="preserve"
