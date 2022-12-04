@@ -31,7 +31,7 @@ class ConnectView(arcade.View):
                                               height=50,
                                               font_size=24,
                                               font_name="Kenney Future",
-                                              text_color=arcade.color.WHITE)
+                                              text_color=arcade.color.BLACK)
         self.gui_manager.add(ui_text_label)
 
         self.server_input_box = arcade.gui.UIInputText(x=x_right,
@@ -41,7 +41,7 @@ class ConnectView(arcade.View):
                                                        font_size=24,
                                                        font_name="Kenney Future",
                                                        text="192.168.1.75",
-                                                       text_color=(255, 255, 255, 255))
+                                                       text_color=arcade.color.BLACK)
         self.gui_manager.add(self.server_input_box)
 
         y -= line_height
@@ -52,7 +52,7 @@ class ConnectView(arcade.View):
                                               height=50,
                                               font_size=24,
                                               font_name="Kenney Future",
-                                              text_color=arcade.color.WHITE)
+                                              text_color=arcade.color.BLACK)
         self.gui_manager.add(ui_text_label)
 
         self.port_input_box = arcade.gui.UIInputText(x=x_right,
@@ -62,7 +62,7 @@ class ConnectView(arcade.View):
                                                      font_size=24,
                                                      font_name="Kenney Future",
                                                      text="10000",
-                                                     text_color=(255, 255, 255, 255))
+                                                     text_color=arcade.color.BLACK)
         self.gui_manager.add(self.port_input_box)
 
         y -= line_height
@@ -83,7 +83,7 @@ class ConnectView(arcade.View):
 
         self.gui_manager.add(connect_button)
 
-        arcade.set_background_color(arcade.color.AMAZON)
+        arcade.set_background_color(arcade.color.PAPAYA_WHIP)
 
     def on_draw(self):
         arcade.start_render()

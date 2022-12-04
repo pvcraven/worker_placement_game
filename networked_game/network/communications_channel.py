@@ -21,6 +21,7 @@ class CommunicationsChannel:
         self.their_ip = their_ip
         self.their_port = their_port
         self.current_state = NO_CONNECTION
+        self.databuffer = bytearray()
 
         self.my_socket = None
         self.connection = None
@@ -47,14 +48,30 @@ class CommunicationsChannel:
         if self.current_state == CONNECTED:
             try:
                 # Read in the data, up to the number of characters in BUFFER_SIZE
-                data = self.connection.recv(BUFFER_SIZE)
+                try:
+                    data = self.connection.recv(BUFFER_SIZE)
+                    logger.debug(f"Data in: {data}")
+                    self.databuffer.extend(data)
+                except ConnectionAbortedError:
+                    self.connection = None
+                    self.current_state = NO_CONNECTION
+                    logger.debug("Client connection aborted.")
+                    return
 
                 # See if we have data
-                if len(data) > 0:
-                    logger.debug(f"Receiving data...")
+                while len(self.databuffer) > 0 and ord('\n') in self.databuffer:
+                    logger.debug(f"Received message...")
+                    eom = b'\n'
+                    split_index = self.databuffer.index(eom)
+                    data = self.databuffer[:split_index]
+                    self.databuffer = self.databuffer[split_index+1:]
                     # Decode the byte string to a normal string
                     data_string = data.decode("UTF-8")
-                    decoded_data = json.loads(data_string)
+                    try:
+                        decoded_data = json.loads(data_string)
+                    except json.JSONDecodeError:
+                        logger.exception(f"Unable to decode '{data_string}'")
+                        return
 
                     # Print what we read in, and from where
                     # print(f"Data from {self.client_ip}:{self.client_port} --> '{data_string}'")
@@ -71,7 +88,8 @@ class CommunicationsChannel:
         if self.current_state == CONNECTED and not self.send_queue.empty():
             data = self.send_queue.get()
             logger.debug(f">>> {data}")
-            encoded_data = json.JSONEncoder().encode(data).encode('utf-8')
+            message = json.JSONEncoder().encode(data) + "\n"
+            encoded_data = message.encode('utf-8')
             self.connection.sendall(encoded_data)
             logger.debug(">>> Data sent")
 

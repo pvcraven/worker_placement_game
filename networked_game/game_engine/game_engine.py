@@ -32,7 +32,8 @@ class GameEngine:
     def process_data(self, data: dict, user_connection) -> dict:
         full_result = {}
         for command in self.commands:
-            command_result = command.process(data, user_connection, self.game_data)
+            command_result = command.process(data=data, user_connection=user_connection, game_data=self.game_data)
             full_result = merge_dicts(full_result, command_result)
+            logger.debug(f"{full_result=}")
 
         return full_result

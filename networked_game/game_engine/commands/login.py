@@ -12,14 +12,14 @@ class Login(Command):
         logger.debug(f"Log request from  {user_connection.user_name}")
 
         if game_data['state'] != 'waiting_for_players':
-            return {'messages': ['login_game_already_started']}
+            return {'error': True, 'messages': ['login_game_already_started']}
 
         user_name = data["user_name"]
         if user_name in game_data["users"]:
-            return {'messages': ['login_user_already_exists']}
+            return {'error': True, 'messages': ['login_user_already_exists']}
 
         user_connection.user_name = user_name
         login_order = len(game_data["users"])
         game_data["users"][user_name] = {"login_order": login_order}
 
-        return {'messages': ['login_success']}
+        return {'error': False, 'messages': ['login_success']}

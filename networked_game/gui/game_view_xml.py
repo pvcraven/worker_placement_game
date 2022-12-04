@@ -242,28 +242,28 @@ class GameViewXML(arcade.View):
                                                           self.window.width, self.window.height)
         for shape in self.svg.shapes:
             if isinstance(shape, Rect):
-
-                cx, cy, width, height = get_rect_info(shape, origin_x, origin_y, ratio)
-                if "fill" in shape.style:
-                    color = shape.style["fill"]
-                    if isinstance(color, str) and color.startswith("#"):
-                        h = color.lstrip('#')
-                        color = [int(h[i:i + 2], 16) for i in (0, 2, 4)]
-                        if "fill-opacity" in shape.style:
-                            opacity = int(float(shape.style["fill-opacity"]) * 255)
-                            color.append(opacity)
-                        arcade.draw_rectangle_filled(cx, cy, width, height, color)
-                if "stroke" in shape.style:
-                    color = shape.style["stroke"]
-                    if isinstance(color, str) and color.startswith("#"):
-                        h = color.lstrip('#')
-                        color = [int(h[i:i + 2], 16) for i in (0, 2, 4)]
-                        if "stroke-opacity" in shape.style:
-                            opacity = int(float(shape.style["stroke-opacity"]) * 255)
-                            color.append(opacity)
-
-                        stroke_width = shape.style["stroke-width"] * ratio
-                        arcade.draw_rectangle_outline(cx, cy, width, height, color, stroke_width)
+                pass
+                # cx, cy, width, height = get_rect_info(shape, origin_x, origin_y, ratio)
+                # if "fill" in shape.style:
+                #     color = shape.style["fill"]
+                #     if isinstance(color, str) and color.startswith("#"):
+                #         h = color.lstrip('#')
+                #         color = [int(h[i:i + 2], 16) for i in (0, 2, 4)]
+                #         if "fill-opacity" in shape.style:
+                #             opacity = int(float(shape.style["fill-opacity"]) * 255)
+                #             color.append(opacity)
+                #         arcade.draw_rectangle_filled(cx, cy, width, height, color)
+                # if "stroke" in shape.style:
+                #     color = shape.style["stroke"]
+                #     if isinstance(color, str) and color.startswith("#"):
+                #         h = color.lstrip('#')
+                #         color = [int(h[i:i + 2], 16) for i in (0, 2, 4)]
+                #         if "stroke-opacity" in shape.style:
+                #             opacity = int(float(shape.style["stroke-opacity"]) * 255)
+                #             color.append(opacity)
+                #
+                #         stroke_width = shape.style["stroke-width"] * ratio
+                #         arcade.draw_rectangle_outline(cx, cy, width, height, color, stroke_width)
             elif isinstance(shape, Text):
                 x, y = get_point_info(shape.x, shape.y, origin_x, origin_y, ratio)
                 text = text_replacement(shape.text, self.window.game_data)

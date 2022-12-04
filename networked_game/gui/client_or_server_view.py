@@ -35,7 +35,7 @@ class ClientOrServerView(arcade.View):
                                            font_size=32,
                                            font_name="Kenney Future",
                                            align="center",
-                                           text_color=arcade.color.WHITE)
+                                           text_color=arcade.color.BLACK)
         self.gui_manager.add(ui_text_label)
 
         y -= line_height
@@ -47,7 +47,7 @@ class ClientOrServerView(arcade.View):
                                               height=40,
                                               font_size=24,
                                               font_name="Kenney Future",
-                                              text_color=arcade.color.WHITE)
+                                              text_color=arcade.color.BLACK)
         self.gui_manager.add(ui_text_label)
 
         self.name_input_box = arcade.gui.UIInputText(x=x_right,
@@ -57,7 +57,7 @@ class ClientOrServerView(arcade.View):
                                                      font_size=24,
                                                      font_name="Kenney Future",
                                                      text="Paul",
-                                                     text_color=(255, 255, 255, 255))
+                                                     text_color=arcade.color.BLACK)
         self.gui_manager.add(self.name_input_box)
 
         y -= line_height
@@ -88,7 +88,7 @@ class ClientOrServerView(arcade.View):
 
         self.gui_manager.add(client_button)
 
-        arcade.set_background_color(arcade.color.AMAZON)
+        arcade.set_background_color(arcade.color.PAPAYA_WHIP)
 
     def on_draw(self):
         arcade.start_render()
@@ -101,4 +101,4 @@ class ClientOrServerView(arcade.View):
         height = self.name_input_box.height
         x += width / 2 - 5
         y += height / 2
-        arcade.draw_rectangle_outline(x, y, width, height, arcade.color.WHITE, 2)
+        arcade.draw_rectangle_outline(x, y, width, height, arcade.color.BLACK, 2)

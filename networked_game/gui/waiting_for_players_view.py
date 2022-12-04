@@ -18,7 +18,7 @@ class WaitingForPlayersView(arcade.View):
         self.gui_manager = None
         self.server = server
 
-        arcade.set_background_color(arcade.color.AMAZON)
+        arcade.set_background_color(arcade.color.PAPAYA_WHIP)
 
         logger.debug(f"Have server {self.window.server}")
         if server:
@@ -56,6 +56,8 @@ class WaitingForPlayersView(arcade.View):
                 logger.debug("Message received, switching to game view.")
                 view = GameViewXML()
                 self.window.show_view(view)
+            elif "users" in data:
+                self.window.game_data = data
 
     def on_draw(self):
         arcade.start_render()
@@ -70,7 +72,7 @@ class WaitingForPlayersView(arcade.View):
         arcade.draw_text("Waiting For Players",
                          start_x=x,
                          start_y=y,
-                         color=arcade.color.WHITE,
+                         color=arcade.color.BLACK,
                          font_size=24,
                          font_name="Kenney Future",
                          )
@@ -81,7 +83,7 @@ class WaitingForPlayersView(arcade.View):
         arcade.draw_text(f"Server: {ip}:{port}",
                          start_x=x,
                          start_y=y,
-                         color=arcade.color.WHITE,
+                         color=arcade.color.BLACK,
                          font_size=24,
                          font_name="Kenney Future",
                          )
@@ -95,7 +97,7 @@ class WaitingForPlayersView(arcade.View):
                 arcade.draw_text(user,
                                  start_x=x,
                                  start_y=y,
-                                 color=arcade.color.WHITE,
+                                 color=arcade.color.BLACK,
                                  font_size=24,
                                  font_name="Kenney Future",
                                  )
