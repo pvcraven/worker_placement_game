@@ -45,14 +45,13 @@ class Move(Command):
         if data['command'] != 'move':
             return {}
 
-        user_name = user_connection.user_name
-        player_name = get_player_from_username(user_name, game_data)
+        player_name = get_player_from_username(user_connection.user_name, game_data)
         board = game_data['board']
 
         destination_position = data['to_position']
         piece_name = data['piece']
 
-        logger.debug(f"Move request from  {user_name}")
+        logger.debug(f"Move request from  {player_name}")
 
         # Check rules
         for rule in self.rules:

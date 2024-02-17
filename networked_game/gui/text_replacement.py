@@ -1,7 +1,7 @@
-from networked_game.util import format_resources
+from networked_game.game_engine.piece_util_functions import get_player_from_username
 
 
-def text_replacement(text, game_data):
+def text_replacement(text, player_name, game_data):
     board = game_data['board']
     players = board['players']
 
@@ -37,6 +37,10 @@ def text_replacement(text, game_data):
     move = board['round_moves'][0]
     player = move['player']
     action = move['action']
-    text = text.replace("#status#", f"{player}: '{action}'")
+    player_whose_turn_it_is = board['round_moves'][0]['player']
+    player_name_whose_turn_it_is = players[player_whose_turn_it_is]['login_name']
+    text = text.replace("#player_name#", f"{player_name}")
+    text = text.replace("#whos_turn#", f"{player_name_whose_turn_it_is}")
+    text = text.replace("#action#", f"{action}")
 
     return text

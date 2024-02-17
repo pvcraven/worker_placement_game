@@ -15,11 +15,14 @@ class PickQuestCard(Command):
             return {}
 
         quest_name = data['quest_name']
-        user_name = user_connection.user_name
-        player_name = get_player_from_username(user_name, game_data)
         board = game_data['board']
 
+        # Who is this?
+        player_name = get_player_from_username(user_connection.user_name, game_data)
+
+        # Who's turn is it?
         player_whose_turn_it_is = board['round_moves'][0]['player']
+
         if player_name != player_whose_turn_it_is:
             logger.debug(f" {player_name=} != {player_whose_turn_it_is=}")
             return {'messages': ['not_your_turn']}
@@ -39,5 +42,6 @@ class PickQuestCard(Command):
 
         # Pop off this action
         board['round_moves'].pop(0)
+        assert board['round_moves']
 
         return {'messages': ['quest_picked']}

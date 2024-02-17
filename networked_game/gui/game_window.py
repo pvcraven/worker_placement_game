@@ -24,9 +24,12 @@ class GameWindow(arcade.Window):
         logger.debug("Closing connection...")
         if self.communications_channel:
             self.communications_channel.send_queue.put({"command": "logout"})
-            while not self.communications_channel.send_queue.empty():
+            timeout = 2.0
+            while not self.communications_channel.send_queue.empty() and timeout > 0:
                 self.communications_channel.service_channel()
-                time.sleep(0.1)
+                wait_time = 0.1
+                timeout -= wait_time
+                time.sleep(wait_time)
             self.communications_channel.close()
         logger.debug("Closed.")
         self.close()

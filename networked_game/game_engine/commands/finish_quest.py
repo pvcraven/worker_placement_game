@@ -16,13 +16,25 @@ class FinishQuest(Command):
         if data['command'] != 'finish_quest':
             return {}
 
+        # Who is this?
+        player_name = get_player_from_username(user_connection.user_name, game_data)
+
+        # Is it my turn?
+        player_whose_turn_it_is = board['round_moves'][0]['player']
+        if player_name != player_whose_turn_it_is:
+            logger.debug(f" {player_name=} != {player_whose_turn_it_is=}")
+            return {'messages': ['not_your_turn']}
+
+        # Is it the right phase?
+        move = board['round_moves'][0]
+        if move['action'] != 'finish_quest':
+            return {'messages': ['wrong_turn_phase']}
+
         # Did we specify the quest name?
         if 'quest_name' in data and data['quest_name']:
 
             # We asked to complete a quest, get the data
             quest_name = data['quest_name']
-            user_name = user_connection.user_name
-            player_name = get_player_from_username(user_name, game_data)
 
             # Is the quest owned by the player?
             if quest_name not in board['players'][player_name]['uncompleted_quest_cards']:

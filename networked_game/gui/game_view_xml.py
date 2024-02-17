@@ -266,11 +266,11 @@ class GameViewXML(arcade.View):
                 #         arcade.draw_rectangle_outline(cx, cy, width, height, color, stroke_width)
             elif isinstance(shape, Text):
                 x, y = get_point_info(shape.x, shape.y, origin_x, origin_y, ratio)
-                text = text_replacement(shape.text, self.window.game_data)
+                text = text_replacement(shape.text, self.window.user_name, self.window.game_data)
                 text_size_string = shape.style["font-size"]
                 text_size_string = text_size_string[:-2]
                 text_size_float = float(text_size_string) * 1 * ratio
-                arcade.draw_text(text, x, y, arcade.color.BLACK, text_size_float, multiline=True, width=500)
+                arcade.draw_text(text, x, y, arcade.color.BLACK, text_size_float, multiline=True, width=800)
 
     def draw_messages(self):
         if len(self.messages) > 0:

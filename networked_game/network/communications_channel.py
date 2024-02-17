@@ -51,6 +51,11 @@ class CommunicationsChannel:
                 try:
                     data = self.connection.recv(BUFFER_SIZE)
                     logger.debug(f"Data in: {data}")
+                    if len(data) == 0:
+                        logger.debug(f"Socket disconnected")
+                        self.close()
+                        return
+
                     self.databuffer.extend(data)
                 except ConnectionAbortedError:
                     self.connection = None
