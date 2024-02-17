@@ -270,7 +270,7 @@ class GameViewXML(arcade.View):
                 text_size_string = shape.style["font-size"]
                 text_size_string = text_size_string[:-2]
                 text_size_float = float(text_size_string) * 1 * ratio
-                arcade.draw_text(text, x, y, arcade.color.BLACK, text_size_float, multiline=True, width=200)
+                arcade.draw_text(text, x, y, arcade.color.BLACK, text_size_float, multiline=True, width=500)
 
     def draw_messages(self):
         if len(self.messages) > 0:

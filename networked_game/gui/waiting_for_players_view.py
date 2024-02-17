@@ -16,14 +16,15 @@ class WaitingForPlayersView(arcade.View):
         super().__init__()
 
         self.gui_manager = None
+        self.gui_manager = arcade.gui.UIManager()
+        self.gui_manager.enable()
+
         self.server = server
 
         arcade.set_background_color(arcade.color.PAPAYA_WHIP)
 
         logger.debug(f"Have server {self.window.server}")
         if server:
-            self.gui_manager = arcade.gui.UIManager()
-            self.gui_manager.enable()
 
             width = 250
             start_button = arcade.gui.UIFlatButton(text="Start Game",
@@ -38,6 +39,9 @@ class WaitingForPlayersView(arcade.View):
                 logger.debug(f"Start game")
                 data = {"command": "start_game"}
                 self.window.communications_channel.send_queue.put(data)
+
+    def on_hide_view(self):
+        self.gui_manager.disable()
 
     def on_update(self, delta_time):
 

@@ -34,5 +34,9 @@ def text_replacement(text, game_data):
         text = text.replace("#player-2-purple#", "")
         text = text.replace("#player-2-coins#", "")
 
+    move = board['round_moves'][0]
+    player = move['player']
+    action = move['action']
+    text = text.replace("#status#", f"{player}: '{action}'")
 
     return text
