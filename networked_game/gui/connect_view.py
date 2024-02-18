@@ -74,7 +74,7 @@ class ConnectView(arcade.View):
 
         @connect_button.event("on_click")
         def on_click_settings(event):
-            print("Connect:", event)
+            logger.debug("Connect:", event)
             server_port = int(self.port_input_box.text)
             server_address = self.server_input_box.text
             user_name = self.window.user_name

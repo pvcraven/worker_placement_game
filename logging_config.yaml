@@ -1,0 +1,19 @@
+version: 1
+disable_existing_loggers: False
+formatters:
+  simple:
+    format: '%(levelname)s %(name)s %(pathname)s:%(lineno)d %(message)s'
+handlers:
+  console:
+    class: logging.StreamHandler
+    level: DEBUG
+    formatter: simple
+    stream: ext://sys.stdout
+loggers:
+  PIL.PngImagePlugin:
+    level: WARN
+  arcade:
+    level: WARN
+root:
+  level: DEBUG
+  handlers: [console]

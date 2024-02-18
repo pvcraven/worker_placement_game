@@ -70,6 +70,7 @@ class ClientOrServerView(arcade.View):
         @server_button.event("on_click")
         def on_click_settings(_event):
             logger.debug(f"Starting server with user name {self.name_input_box.text}")
+            self.window.user_name = self.name_input_box.text
             self.window.start_server(self.name_input_box.text, get_ip_address(), 10000)
 
         self.gui_manager.add(server_button)

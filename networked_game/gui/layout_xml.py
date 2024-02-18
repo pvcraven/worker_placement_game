@@ -113,7 +113,7 @@ def process_item(item: ElementTree.Element, shapes: List, image_height: float):
 
         # Create object and append to list
         rect = Rect(item_id, x, y, width, height, style_dict)
-        logging.debug(rect)
+        logger.debug(rect)
         shapes.append(rect)
 
     elif item.tag == "text":
@@ -131,7 +131,7 @@ def process_item(item: ElementTree.Element, shapes: List, image_height: float):
 
         # Create object and append to list
         text = Text(item_id, x, y, style_dict, text_string)
-        logging.debug(text)
+        logger.debug(text)
         shapes.append(text)
 
 

@@ -5,12 +5,19 @@ import logging
 from networked_game.gui.client_or_server_view import ClientOrServerView
 from networked_game.gui.game_window import GameWindow
 
-logging.basicConfig(format='%(levelname)-7s %(filename)-35s %(lineno)-3d %(msecs)03d %(message)s', level=logging.DEBUG)
-logging.getLogger("arcade").setLevel(logging.WARN)
+import logging.config
+import yaml
 
+
+logger = logging.getLogger(__name__)
 
 def main():
     """ Main function """
+
+    # Set up logging
+    with open('logging_config.yaml', 'r') as f:
+        config = yaml.safe_load(f.read())
+        logging.config.dictConfig(config)
 
     # Set up for any command line arguments
     parser = argparse.ArgumentParser()
@@ -29,10 +36,10 @@ def main():
     server_address = "127.0.0.1" if not args.address else args.address
     server_port = 10000 if not args.port else args.port
     if args.start_server:
-        print(f"Start server: {args.start_server}")
+        logger.info(f"Start server: {args.start_server}")
         window.start_server(user_name, server_address, server_port)
     elif args.connect_to_server:
-        print(f"Connect to server: {args.connect_to_server}")
+        logger.info(f"Connect to server: {args.connect_to_server}")
         window.connect_to_server(user_name, server_address, server_port)
     else:
         # No arguments to skip screens, open up with first view

@@ -1,5 +1,6 @@
-from networked_game.game_engine.piece_util_functions import get_player_from_username
-
+"""
+Swap placeholders with actual text
+"""
 
 def text_replacement(text, player_name, game_data):
     board = game_data['board']

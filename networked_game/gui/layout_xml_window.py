@@ -77,7 +77,7 @@ class GameWindow(arcade.Window):
         self.draw_layout()
 
     def on_mouse_press(self, x, y, button, mod):
-        print("Click")
+        logger.debug("Click")
         origin_x, origin_y, scale = self.calculate_screen_data()
         get_shape_at(self.svg, origin_x, origin_y, scale, x, y)
 
