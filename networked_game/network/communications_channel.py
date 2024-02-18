@@ -50,7 +50,7 @@ class CommunicationsChannel:
                 # Read in the data, up to the number of characters in BUFFER_SIZE
                 try:
                     data = self.connection.recv(BUFFER_SIZE)
-                    logger.debug(f"Data in: {data}")
+                    # logger.debug(f"Data in: {data}")
                     if len(data) == 0:
                         logger.debug(f"Socket disconnected")
                         self.close()
@@ -81,7 +81,7 @@ class CommunicationsChannel:
                     # Print what we read in, and from where
                     # print(f"Data from {self.client_ip}:{self.client_port} --> '{data_string}'")
                     self.receive_queue.put(decoded_data)
-                    logger.debug(f"<<< {decoded_data}")
+                    logger.debug(f"<<< {json.dumps(decoded_data)}")
 
                 # self.current_state = NO_CONNECTION
                 # self.connection.close()

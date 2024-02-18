@@ -35,13 +35,18 @@ def text_replacement(text, player_name, game_data):
         text = text.replace("#player-2-purple#", "")
         text = text.replace("#player-2-coins#", "")
 
-    move = board['round_moves'][0]
-    player = move['player']
-    action = move['action']
-    player_whose_turn_it_is = board['round_moves'][0]['player']
-    player_name_whose_turn_it_is = players[player_whose_turn_it_is]['login_name']
+    if board['round_moves']:
+        move = board['round_moves'][0]
+        player_whose_turn_it_is = board['round_moves'][0]['player']
+        player_name_whose_turn_it_is = players[player_whose_turn_it_is]['login_name']
+        action = move['action']
+    else:
+        player_name_whose_turn_it_is = ""
+        action = "Game over"
+
     text = text.replace("#player_name#", f"{player_name}")
     text = text.replace("#whos_turn#", f"{player_name_whose_turn_it_is}")
     text = text.replace("#action#", f"{action}")
+    text = text.replace("#round#", f"{board['round']}")
 
     return text

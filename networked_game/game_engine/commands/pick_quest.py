@@ -17,6 +17,10 @@ class PickQuestCard(Command):
         quest_name = data['quest_name']
         board = game_data['board']
 
+        # Are we still playing?
+        if not board['round_moves'][0]:
+            return {'messages': ['game_over']}
+
         # Who is this?
         player_name = get_player_from_username(user_connection.user_name, game_data)
 

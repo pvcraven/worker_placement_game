@@ -210,7 +210,7 @@ class GameViewXML(arcade.View):
 
     def process_game_data(self, data):
 
-        logger.debug(f"Processing {data}")
+        logger.debug(f"Processing game data")
 
         # Create new sprite lists
         self.piece_list = arcade.SpriteList()
