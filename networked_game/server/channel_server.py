@@ -1,9 +1,8 @@
-import socket
 import logging
+import socket
 
-from networked_game.network.constants import *
 from networked_game.network.communications_channel import CommunicationsChannel
-
+from networked_game.network.constants import *
 
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.DEBUG)
@@ -11,9 +10,7 @@ logger.setLevel(logging.DEBUG)
 
 class ChannelServer:
 
-    def __init__(self,
-                 my_ip_address=None,
-                 my_ip_port=None):
+    def __init__(self, my_ip_address=None, my_ip_port=None):
 
         self.my_ip_address = my_ip_address
         self.my_ip_port = my_ip_port

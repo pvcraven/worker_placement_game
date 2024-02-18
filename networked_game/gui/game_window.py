@@ -1,12 +1,13 @@
-import arcade
-import time
 import logging
+import time
+
+import arcade
 import yaml
 
 from networked_game.gui.constants import *
 from networked_game.gui.waiting_for_players_view import WaitingForPlayersView
-from networked_game.server.server import Server
 from networked_game.network.communications_channel import CommunicationsChannel
+from networked_game.server.server import Server
 
 logger = logging.getLogger(__name__)
 
@@ -45,8 +46,9 @@ class GameWindow(arcade.Window):
         self.show_view(view)
         self.user_name = user_name
 
-        self.communications_channel = CommunicationsChannel(their_ip=server_address,
-                                                            their_port=server_port)
+        self.communications_channel = CommunicationsChannel(
+            their_ip=server_address, their_port=server_port
+        )
         self.communications_channel.connect()
         data = {"command": "login", "user_name": user_name}
         self.communications_channel.send_queue.put(data)
@@ -54,7 +56,9 @@ class GameWindow(arcade.Window):
         self.server.server_check()
 
     def connect_to_server(self, user_name, server_address, server_port):
-        self.communications_channel = CommunicationsChannel(their_ip=server_address, their_port=server_port)
+        self.communications_channel = CommunicationsChannel(
+            their_ip=server_address, their_port=server_port
+        )
         self.communications_channel.connect()
         self.user_name = user_name
         data = {"command": "login", "user_name": user_name}

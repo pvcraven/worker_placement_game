@@ -9,12 +9,12 @@ def merge_dicts(a: dict, b: dict):
 
 
 def format_resources(resources, skip_blanks):
-    points = resources['points'] if 'points' in resources else 0
-    black = resources['black'] if 'black' in resources else 0
-    orange = resources['orange'] if 'orange' in resources else 0
-    purple = resources['purple'] if 'purple' in resources else 0
-    white = resources['white'] if 'white' in resources else 0
-    coins = resources['coins'] if 'coins' in resources else 0
+    points = resources["points"] if "points" in resources else 0
+    black = resources["black"] if "black" in resources else 0
+    orange = resources["orange"] if "orange" in resources else 0
+    purple = resources["purple"] if "purple" in resources else 0
+    white = resources["white"] if "white" in resources else 0
+    coins = resources["coins"] if "coins" in resources else 0
     result = ""
 
     if points or not skip_blanks:

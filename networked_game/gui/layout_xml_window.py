@@ -1,12 +1,15 @@
-import arcade
 import logging
 
-from networked_game.gui import process_svg
-from networked_game.gui import get_rect_info
-from networked_game.gui import get_point_info
-from networked_game.gui import get_shape_at
-from networked_game.gui import Rect
-from networked_game.gui import Text
+import arcade
+
+from networked_game.gui import (
+    Rect,
+    Text,
+    get_point_info,
+    get_rect_info,
+    get_shape_at,
+    process_svg,
+)
 
 SCREEN_WIDTH = 1600
 SCREEN_HEIGHT = 900

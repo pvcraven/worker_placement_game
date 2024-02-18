@@ -1,7 +1,7 @@
-import socket
-import queue
 import json
 import logging
+import queue
+import socket
 
 from .constants import *
 
@@ -10,11 +10,9 @@ logger = logging.getLogger(__name__)
 
 class CommunicationsChannel:
 
-    def __init__(self,
-                 my_ip_address=None,
-                 my_ip_port=None,
-                 their_ip=None,
-                 their_port=None):
+    def __init__(
+        self, my_ip_address=None, my_ip_port=None, their_ip=None, their_port=None
+    ):
 
         self.my_ip_address = my_ip_address
         self.my_ip_port = my_ip_port
@@ -64,12 +62,12 @@ class CommunicationsChannel:
                     return
 
                 # See if we have data
-                while len(self.databuffer) > 0 and ord('\n') in self.databuffer:
+                while len(self.databuffer) > 0 and ord("\n") in self.databuffer:
                     logger.debug(f"Received message...")
-                    eom = b'\n'
+                    eom = b"\n"
                     split_index = self.databuffer.index(eom)
                     data = self.databuffer[:split_index]
-                    self.databuffer = self.databuffer[split_index+1:]
+                    self.databuffer = self.databuffer[split_index + 1 :]
                     # Decode the byte string to a normal string
                     data_string = data.decode("UTF-8")
                     try:
@@ -94,7 +92,7 @@ class CommunicationsChannel:
             data = self.send_queue.get()
             logger.debug(f">>> {data}")
             message = json.JSONEncoder().encode(data) + "\n"
-            encoded_data = message.encode('utf-8')
+            encoded_data = message.encode("utf-8")
             self.connection.sendall(encoded_data)
             logger.debug(">>> Data sent")
 

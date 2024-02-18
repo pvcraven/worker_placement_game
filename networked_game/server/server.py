@@ -1,7 +1,8 @@
 import logging
 
-from networked_game.server.channel_server import ChannelServer
 from networked_game.game_engine import GameEngine
+from networked_game.server.channel_server import ChannelServer
+
 from .user_connection import UserConnection
 
 logger = logging.getLogger(__name__)
@@ -11,7 +12,9 @@ logger.setLevel(logging.DEBUG)
 class Server:
     def __init__(self, my_ip_address, my_ip_port):
         logger.debug(f"Starting to listen on {my_ip_address}:{my_ip_port}")
-        self.channel_server = ChannelServer(my_ip_address=my_ip_address, my_ip_port=my_ip_port)
+        self.channel_server = ChannelServer(
+            my_ip_address=my_ip_address, my_ip_port=my_ip_port
+        )
         self.channel_server.start_listening()
         self.user_connections = []
         self.game = GameEngine()

@@ -24,53 +24,63 @@ class ConnectView(arcade.View):
 
         y -= line_height
 
-        ui_text_label = arcade.gui.UITextArea(x=x_left,
-                                              y=y,
-                                              text="Server:",
-                                              width=450,
-                                              height=50,
-                                              font_size=24,
-                                              font_name="Kenney Future",
-                                              text_color=arcade.color.BLACK)
+        ui_text_label = arcade.gui.UITextArea(
+            x=x_left,
+            y=y,
+            text="Server:",
+            width=450,
+            height=50,
+            font_size=24,
+            font_name="Kenney Future",
+            text_color=arcade.color.BLACK,
+        )
         self.gui_manager.add(ui_text_label)
 
-        self.server_input_box = arcade.gui.UIInputText(x=x_right,
-                                                       y=y,
-                                                       width=input_field_width,
-                                                       height=50,
-                                                       font_size=24,
-                                                       font_name="Kenney Future",
-                                                       text="192.168.1.75",
-                                                       text_color=arcade.color.BLACK)
+        self.server_input_box = arcade.gui.UIInputText(
+            x=x_right,
+            y=y,
+            width=input_field_width,
+            height=50,
+            font_size=24,
+            font_name="Kenney Future",
+            text="192.168.1.75",
+            text_color=arcade.color.BLACK,
+        )
         self.gui_manager.add(self.server_input_box)
 
         y -= line_height
-        ui_text_label = arcade.gui.UITextArea(x=x_left,
-                                              y=y,
-                                              text="Port:",
-                                              width=450,
-                                              height=50,
-                                              font_size=24,
-                                              font_name="Kenney Future",
-                                              text_color=arcade.color.BLACK)
+        ui_text_label = arcade.gui.UITextArea(
+            x=x_left,
+            y=y,
+            text="Port:",
+            width=450,
+            height=50,
+            font_size=24,
+            font_name="Kenney Future",
+            text_color=arcade.color.BLACK,
+        )
         self.gui_manager.add(ui_text_label)
 
-        self.port_input_box = arcade.gui.UIInputText(x=x_right,
-                                                     y=y,
-                                                     width=input_field_width,
-                                                     height=50,
-                                                     font_size=24,
-                                                     font_name="Kenney Future",
-                                                     text="10000",
-                                                     text_color=arcade.color.BLACK)
+        self.port_input_box = arcade.gui.UIInputText(
+            x=x_right,
+            y=y,
+            width=input_field_width,
+            height=50,
+            font_size=24,
+            font_name="Kenney Future",
+            text="10000",
+            text_color=arcade.color.BLACK,
+        )
         self.gui_manager.add(self.port_input_box)
 
         y -= line_height
 
-        connect_button = arcade.gui.UIFlatButton(text="Connect", width=200,
-                                                 x=x_left,
-                                                 y=y,
-                                                 )
+        connect_button = arcade.gui.UIFlatButton(
+            text="Connect",
+            width=200,
+            x=x_left,
+            y=y,
+        )
 
         @connect_button.event("on_click")
         def on_click_settings(event):

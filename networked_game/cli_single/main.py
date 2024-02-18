@@ -7,26 +7,26 @@ logger = logging.getLogger(__name__)
 
 
 def print_result_data(result_data):
-    if 'messages' in result_data:
-        for message in result_data['messages']:
+    if "messages" in result_data:
+        for message in result_data["messages"]:
             print(f"Message: {message}")
 
 
 def print_card(board, quest_card_name):
-    resources = board['quest_cards'][quest_card_name]['resources']
+    resources = board["quest_cards"][quest_card_name]["resources"]
     resources_string = format_resources(resources, True)
-    reward = board['quest_cards'][quest_card_name]['rewards']
+    reward = board["quest_cards"][quest_card_name]["rewards"]
     reward_string = format_resources(reward, True)
     print(f"  {quest_card_name}: {resources_string} -> {reward_string}")
 
 
 def format_resources(resources, skip_blanks):
-    points = resources['points'] if 'points' in resources else 0
-    black = resources['black'] if 'black' in resources else 0
-    orange = resources['orange'] if 'orange' in resources else 0
-    purple = resources['purple'] if 'purple' in resources else 0
-    white = resources['white'] if 'white' in resources else 0
-    coins = resources['coins'] if 'coins' in resources else 0
+    points = resources["points"] if "points" in resources else 0
+    black = resources["black"] if "black" in resources else 0
+    orange = resources["orange"] if "orange" in resources else 0
+    purple = resources["purple"] if "purple" in resources else 0
+    white = resources["white"] if "white" in resources else 0
+    coins = resources["coins"] if "coins" in resources else 0
     result = ""
 
     if points or not skip_blanks:
@@ -46,48 +46,50 @@ def format_resources(resources, skip_blanks):
 
 
 def print_board(board):
-    game_round = board['round']
-    round_move = board['round_moves'][0]
-    action = round_move['action']
-    current_players_turn = round_move['player']
+    game_round = board["round"]
+    round_move = board["round_moves"][0]
+    action = round_move["action"]
+    current_players_turn = round_move["player"]
 
     # Print round information
     print()
-    print(f"--- Round: {game_round} - Action: {action} - Player Turn: {current_players_turn}")
+    print(
+        f"--- Round: {game_round} - Action: {action} - Player Turn: {current_players_turn}"
+    )
 
     # Print piece positions
-    for position in board['piece_positions']:
+    for position in board["piece_positions"]:
         resources_string = ""
-        if 'actions' in board['piece_positions'][position]:
-            actions = board['piece_positions'][position]['actions']
-            if 'get_resources' in actions:
-                resources = actions['get_resources']
+        if "actions" in board["piece_positions"][position]:
+            actions = board["piece_positions"][position]["actions"]
+            if "get_resources" in actions:
+                resources = actions["get_resources"]
                 resources_string = format_resources(resources, True)
         print(f"{position} {resources_string}")
 
-        for piece in board['piece_positions'][position]['pieces']:
+        for piece in board["piece_positions"][position]["pieces"]:
             print(f"  {piece}")
 
     # Print quest draw pile
     print("-- Quest draw pile")
-    for quest_card_name in board['quest_draw_pile']:
+    for quest_card_name in board["quest_draw_pile"]:
         print_card(board, quest_card_name)
 
     # Print players
     print("-- Player Resources")
-    for player_name in board['players']:
+    for player_name in board["players"]:
         # Print player name
-        player = board['players'][player_name]
-        login_name = player['login_name']
+        player = board["players"][player_name]
+        login_name = player["login_name"]
         print(f"{login_name} = {player_name}")
 
         # Print resources
-        resources = player['resources']
+        resources = player["resources"]
         out = f" {format_resources(resources, False)}"
         print(out)
 
         # Print player quests
-        for quest_card_name in player['uncompleted_quest_cards']:
+        for quest_card_name in player["uncompleted_quest_cards"]:
             print_card(board, quest_card_name)
 
         print(f"  Completed {len(player['completed_quest_cards'])} quest(s).")
@@ -97,57 +99,60 @@ def main():
     # Startup
     # logging.basicConfig(level=logging.DEBUG)
     game_engine = GameEngine()
-    user_name = f'My User Name'
-    data = {'command': 'login', 'user_name': user_name}
+    user_name = f"My User Name"
+    data = {"command": "login", "user_name": user_name}
     user_connection = UserConnection()
     result = game_engine.process_data(data, user_connection)
     print_result_data(result)
-    data = {'command': 'start_game'}
+    data = {"command": "start_game"}
     result = game_engine.process_data(data, user_connection)
     print_result_data(result)
 
-    board = game_engine.game_data['board']
+    board = game_engine.game_data["board"]
 
-    while not board['game_over']:
+    while not board["game_over"]:
         # Print board
-        round_move = board['round_moves'][0]
+        round_move = board["round_moves"][0]
         print_board(board)
         print()
 
-        if round_move['action'] == 'move':
+        if round_move["action"] == "move":
             # Get user move
             # piece_name = input("Piece:    ")
-            piece_name = 'player_1_piece_1'
+            piece_name = "player_1_piece_1"
             position_name = input(f"Move {piece_name} to position: ")
             print()
 
             # Process user move
-            data = {'command': 'move',
-                    'piece': piece_name,
-                    'to_position': position_name
-                    }
+            data = {
+                "command": "move",
+                "piece": piece_name,
+                "to_position": position_name,
+            }
             result = game_engine.process_data(data, user_connection)
 
             # Print results
             print_result_data(result)
 
-        if round_move['action'] == 'finish_quest':
+        if round_move["action"] == "finish_quest":
             # Ask if we want to finish a quest
             quest_name = input("Finish Quest: ")
-            data = {'command': 'finish_quest',
-                    'quest_name': quest_name,
-                    }
+            data = {
+                "command": "finish_quest",
+                "quest_name": quest_name,
+            }
             result = game_engine.process_data(data, user_connection)
 
             # Print results
             print_result_data(result)
 
-        if round_move['action'] == 'pick_quest_card':
+        if round_move["action"] == "pick_quest_card":
             # Ask if we want to pick a quest
             quest_name = input("Pick Quest: ")
-            data = {'command': 'pick_quest_card',
-                    'quest_name': quest_name,
-                    }
+            data = {
+                "command": "pick_quest_card",
+                "quest_name": quest_name,
+            }
             result = game_engine.process_data(data, user_connection)
 
             # Print results

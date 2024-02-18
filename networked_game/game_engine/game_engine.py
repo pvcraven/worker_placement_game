@@ -1,4 +1,5 @@
 import logging
+
 from networked_game.game_engine import commands
 from networked_game.util import merge_dicts
 
@@ -14,10 +15,7 @@ class Command:
 class GameEngine:
 
     def __init__(self):
-        self.game_data = {"users": {},
-                          "state": "waiting_for_players",
-                          "board": {}
-                          }
+        self.game_data = {"users": {}, "state": "waiting_for_players", "board": {}}
 
         self.commands = []
         self.commands.append(commands.Login())
@@ -32,7 +30,9 @@ class GameEngine:
     def process_data(self, data: dict, user_connection) -> dict:
         full_result = {}
         for command in self.commands:
-            command_result = command.process(data=data, user_connection=user_connection, game_data=self.game_data)
+            command_result = command.process(
+                data=data, user_connection=user_connection, game_data=self.game_data
+            )
             full_result = merge_dicts(full_result, command_result)
             logger.debug(f"{full_result=}")
 

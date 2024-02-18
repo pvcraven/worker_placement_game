@@ -1,8 +1,7 @@
-import xml.etree.ElementTree as ElementTree
-from typing import List
-from dataclasses import dataclass
 import logging
-
+import xml.etree.ElementTree as ElementTree
+from dataclasses import dataclass
+from typing import List
 
 MM_TO_PX = 3.7795
 
@@ -24,6 +23,7 @@ class SVG:
 @dataclass
 class Rect:
     """Class for keeping track of an item in inventory."""
+
     id: str
     x: float
     y: float
@@ -61,7 +61,9 @@ def get_shape_at(svg, origin_x, origin_y, scale, target_x, target_y):
         if isinstance(shape, Rect):
             cx, cy, width, height = get_rect_info(shape, origin_x, origin_y, scale)
 
-            if (cx - width / 2) <= target_x <= (cx + width / 2) and (cy - height / 2) <= target_y <= (cy + height / 2):
+            if (cx - width / 2) <= target_x <= (cx + width / 2) and (
+                cy - height / 2
+            ) <= target_y <= (cy + height / 2):
                 return shape
 
     return None
@@ -76,37 +78,37 @@ def get_rect_for_name(svg, name: str):
 
 
 def get_style_dict(style_string):
-    style_list = style_string.split(';')
+    style_list = style_string.split(";")
     style_dict = {}
     for item in style_list:
-        name, value = item.split(':')
+        name, value = item.split(":")
         style_dict[name] = value
     return style_dict
 
 
 def process_item(item: ElementTree.Element, shapes: List, image_height: float):
     # Strip namespace
-    _, _, item.tag = item.tag.rpartition('}')
+    _, _, item.tag = item.tag.rpartition("}")
 
     # Process groups
     if item.tag == "g":
-        item_id = item.attrib['id']
+        item_id = item.attrib["id"]
         logger.debug(f"Found group {item_id}.")
         for child in item:
             process_item(child, shapes, image_height)
 
     elif item.tag == "rect":
         # Grab id
-        item_id = item.attrib['id']
+        item_id = item.attrib["id"]
         # Dimensions
-        width = float(item.attrib['width'])
-        height = float(item.attrib['height'])
+        width = float(item.attrib["width"])
+        height = float(item.attrib["height"])
         # Coordinates
-        x = float(item.attrib['x'])
+        x = float(item.attrib["x"])
         # Reverse y
-        y = image_height - float(item.attrib['y'])
+        y = image_height - float(item.attrib["y"])
         # Style info
-        style_dict = get_style_dict(item.attrib['style'])
+        style_dict = get_style_dict(item.attrib["style"])
 
         if "stroke-width" in style_dict:
             style_dict["stroke-width"] = float(style_dict["stroke-width"])
@@ -118,14 +120,14 @@ def process_item(item: ElementTree.Element, shapes: List, image_height: float):
 
     elif item.tag == "text":
         # Grab id
-        item_id = item.attrib['id']
+        item_id = item.attrib["id"]
         tspan = item.find("{http://www.w3.org/2000/svg}tspan")
         # Coordinates
-        x = float(tspan.attrib['x'])
+        x = float(tspan.attrib["x"])
         # Reverse y
-        y = image_height - float(tspan.attrib['y'])
+        y = image_height - float(tspan.attrib["y"])
         # Style info
-        style_dict = get_style_dict(item.attrib['style'])
+        style_dict = get_style_dict(item.attrib["style"])
 
         text_string = tspan.text
 
@@ -139,8 +141,8 @@ def process_svg(filename):
     tree = ElementTree.parse(filename)
     root = tree.getroot()
 
-    image_width = float(root.attrib['width'])
-    image_height = float(root.attrib['height'])
+    image_width = float(root.attrib["width"])
+    image_height = float(root.attrib["height"])
 
     shapes = []
     for item in root:
